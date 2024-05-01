@@ -20,6 +20,11 @@ return {
         local dap = require('dap')
 
         require("neotest").setup({
+            summary = {
+                mappings = {
+                    target = '<leader>t',
+                },
+            },
             adapters = {
                 require("neotest-phpunit")({
                     phpunit_cmd = function()
