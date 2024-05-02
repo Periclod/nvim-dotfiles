@@ -2,7 +2,8 @@ return {
     {
         -- iserv sync
         "kenn7/vim-arsync",
-        event = "VeryLazy",
+        -- Cannot be lazy because it uses VimEnter autocommand
+        lazy = false,
         dependencies = {
             "prabirshrestha/async.vim"
         },
