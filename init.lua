@@ -17,12 +17,15 @@ vim.o.incsearch = true
 
 vim.o.switchbuf = "useopen"
 
+vim.o.spell = true
+vim.bo.spelllang = "en_us,de_de"
+
 require('keymap')
 
--- Hightlight yank using native nvim only api
+-- Highlight yank using native nvim only api
 vim.api.nvim_create_autocmd('TextYankPost', {
     group = vim.api.nvim_create_augroup('highlight_yank', {}),
-    desc = 'Hightlight selection on yank',
+    desc = 'Highlight selection on yank',
     pattern = '*',
     callback = function()
         vim.highlight.on_yank { higroup = 'IncSearch', timeout = 500 }
@@ -45,3 +48,4 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = require('plugins')
 require('lazy').setup(plugins)
 
+-- require('iserv-autosync')

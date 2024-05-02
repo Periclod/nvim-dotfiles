@@ -19,6 +19,10 @@ vim.keymap.set('n', '<C-w>s', '<C-w>h', { noremap = true })
 vim.keymap.set('n', '<C-w>n', '<C-w>l', { noremap = true })
 vim.keymap.set('n', '<C-w>V', '<C-w>s', { noremap = true })
 
+-- Spell checking
+vim.keymap.set('n', '<leader>ft', 'z=', { desc = 'Fix typo under cursor' })
+vim.keymap.set('n', '<leader>st', 'zg', { desc = 'Fix typo under cursor' })
+
 -- LSP mappings
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
