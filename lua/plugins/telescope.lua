@@ -12,7 +12,8 @@ return {
             },
         },
         keys = {
-            { '<D-o>', function() require('telescope.builtin').find_files() end },
+            { '<D-f>', function() require('telescope.builtin').find_files() end },
+            { '<D-o>', function() require('telescope.builtin').buffers() end },
             { '<C-f>', function() require('telescope.builtin').live_grep() end },
             { '<leader>b', function() require('telescope.builtin').buffers() end },
             { '<leader>fh', function() require('telescope.builtin').help_tags() end },
