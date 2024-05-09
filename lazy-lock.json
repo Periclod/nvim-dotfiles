@@ -14,6 +14,7 @@
   "gitsigns.nvim": { "branch": "main", "commit": "9cafac31a091267838e1e90fd6e083d37611f516" },
   "harpoon": { "branch": "harpoon2", "commit": "0378a6c428a0bed6a2781d459d7943843f374bce" },
   "lazy.nvim": { "branch": "main", "commit": "3f13f080434ac942b150679223d54f5ca91e0d52" },
+  "leap-spooky.nvim": { "branch": "main", "commit": "5f44a1f63dc1c4ce50244e92da5bc0d8d1f6eb47" },
   "leap.nvim": { "branch": "main", "commit": "626be4c4ec040aeaf6466c9aae17ee0ab09f1a5b" },
   "lush.nvim": { "branch": "main", "commit": "7c0e27f50901481fe83b974493c4ea67a4296aeb" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "273fdde8ac5e51f3a223ba70980e52bbc09d9f6f" },

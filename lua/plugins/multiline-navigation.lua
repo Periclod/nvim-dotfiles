@@ -1,3 +1,5 @@
+local keys = require('layout')
+
 return {
     {
         'ggandor/leap.nvim',
@@ -8,42 +10,22 @@ return {
             case_sensitive = false,
         },
         config = function ()
-            vim.keymap.set({'n', 'x', 'o'}, '-',  '<Plug>(leap-forward)')
-            vim.keymap.set({'n', 'x', 'o'}, '_',  '<Plug>(leap-backward)')
-            
+            vim.keymap.set({'n', 'x', 'o'}, keys.leapf,  '<Plug>(leap-forward)')
+            vim.keymap.set({'n', 'x', 'o'}, keys.leapb,  '<Plug>(leap-backward)')
+
             require('leap').opts.special_keys.prev_target = '<backspace>'
             require('leap').opts.special_keys.prev_group = '<backspace>'
         end,
     },
-  -- "folke/flash.nvim",
-  -- event = "VeryLazy",
-  -- ---@type Flash.Config
-  -- opts = {
-  --     modes = {
-  --         char = {
-  --             -- When using jump labels, don't use these keys
-  --             -- This allows using those keys directly after the motion
-  --             label = { exclude = 'htsnjcdxyair' },
-  --             -- by default all keymaps are enabled, but you can disable some of them,
-  --             -- by removing them from the list.
-  --             -- If you rather use another key, you can map them
-  --             -- to something else, e.g., { [";"] = "L", [","] = H }
-  --             -- keys = { "f", "F", "t", "T", ";", "," },
-  --             keys = {
-  --                  "f", "F", ";", ",",
-  --                 ['t'] = 'l',
-  --                 ['T'] = 'L',
-  --             },
-  --         }
-  --     }
-  -- },
-  -- -- stylua: ignore
-  -- keys = {
-  --   -- { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-  --   { "-", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-  --   { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-  --   { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-  --   { "<--[[ c-s ]]>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-  -- },
+    {
+        'ggandor/leap-spooky.nvim',
+        lazy = false,
+        dependencies = {
+            'ggandor/leap.nvim',
+        },
+        opts = {
+            paste_on_remote_yank = true,
+        },
+    },
 }
 

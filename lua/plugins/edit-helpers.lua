@@ -1,3 +1,5 @@
+local keys = require('layout')
+
 return {
     {
         "kylechui/nvim-surround",
@@ -22,12 +24,12 @@ return {
     --     event = "VeryLazy",
     -- },
     -- Lots of motions like css selectors and intend groups
-    {
-        -- https://github.com/chrisgrieser/nvim-various-textobjs
-        "chrisgrieser/nvim-various-textobjs",
-        event = "VeryLazy",
-        opts = { useDefaultKeymaps = true },
-    },
+    -- {
+    --     -- https://github.com/chrisgrieser/nvim-various-textobjs
+    --     "chrisgrieser/nvim-various-textobjs",
+    --     event = "VeryLazy",
+    --     opts = { useDefaultKeymaps = true },
+    -- },
     {
         'nvim-treesitter/nvim-treesitter-textobjects',
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
@@ -63,10 +65,10 @@ return {
         event = "VeryLazy",
         opts = {},
         config = function()
-            vim.keymap.set("n", 'j', require('substitute').operator, { noremap = true })
-            vim.keymap.set("n", 'jj', require('substitute').line, { noremap = true })
-            vim.keymap.set("n", 'J', require('substitute').eol, { noremap = true })
-            vim.keymap.set("x", 'j', require('substitute').visual, { noremap = true })
+            vim.keymap.set("n", keys.substitute, require('substitute').operator, { noremap = true })
+            vim.keymap.set("n", keys.substitute .. keys.substitute, require('substitute').line, { noremap = true })
+            vim.keymap.set("n", keys.substitute:upper(), require('substitute').eol, { noremap = true })
+            vim.keymap.set("x", keys.substitute, require('substitute').visual, { noremap = true })
         end
     },
     {

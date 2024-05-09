@@ -1,27 +1,34 @@
+-- Key replacements for custom/qwerty layout
+
+local keys = require('layout')
+
 -- Engramm remappings
 local function full_keymap(key, action)
+    if key == action then
+        return
+    end
     vim.keymap.set({'n', 'v', 'o'}, key, action, { noremap = true })
     vim.keymap.set({'n', 'v', 'o'}, key:upper(), action:upper(), { noremap = true })
 end
 
-full_keymap('h', 'j')
-full_keymap('t', 'k')
-full_keymap('s', 'h')
-full_keymap('n', 'l')
+full_keymap(keys.h, 'h')
+full_keymap(keys.j, 'j')
+full_keymap(keys.k, 'k')
+full_keymap(keys.l, 'l')
 
-full_keymap('j', 't')
-full_keymap('k', 'n')
-full_keymap('l', 't')
+full_keymap(keys.n, 'n')
+full_keymap(keys.t, 't')
 
-vim.keymap.set('n', '<C-w>h', '<C-w>j', { noremap = true })
-vim.keymap.set('n', '<C-w>t', '<C-w>k', { noremap = true })
-vim.keymap.set('n', '<C-w>s', '<C-w>h', { noremap = true })
-vim.keymap.set('n', '<C-w>n', '<C-w>l', { noremap = true })
+vim.keymap.set('n', '<C-w>' .. keys.h, '<C-w>h', { noremap = true })
+vim.keymap.set('n', '<C-w>' .. keys.j, '<C-w>j', { noremap = true })
+vim.keymap.set('n', '<C-w>' .. keys.k, '<C-w>k', { noremap = true })
+vim.keymap.set('n', '<C-w>' .. keys.l, '<C-w>l', { noremap = true })
+-- Probably fine with all (engram & qwerty) layouts
 vim.keymap.set('n', '<C-w>V', '<C-w>s', { noremap = true })
 
 -- Spell checking
 vim.keymap.set('n', '<leader>ft', 'z=', { desc = 'Fix typo under cursor' })
-vim.keymap.set('n', '<leader>st', 'zg', { desc = 'Fix typo under cursor' })
+vim.keymap.set('n', '<leader>st', 'zg', { desc = 'Add word under cursor to wordlist' })
 
 -- LSP mappings
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -63,7 +70,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- Diagnostics
 vim.diagnostic.config({ virtual_text = true })
-vim.keymap.set('n', '<Leader>ds', vim.diagnostic.open_float)
+vim.keymap.set('n', '<Leader>do', vim.diagnostic.open_float, { desc = 'Open Diagnostic floating panel' })
 vim.keymap.set('n', '<D-]>', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<D-[>', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
