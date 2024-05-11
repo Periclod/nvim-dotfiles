@@ -8,6 +8,7 @@
 --     n = 'n',
 --     substitute = 's',
 --     t = 't',
+--     T = 'T',
 --     leapf = '-',
 --     leapb = '_',
 -- };
@@ -22,6 +23,7 @@ return {
     n = 'k',
     substitute = 'j',
     t = '-',
+    T = '_',
     leapf = 'l',
     leapb = 'L',
 }

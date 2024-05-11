@@ -7,8 +7,13 @@ local function full_keymap(key, action)
     if key == action then
         return
     end
-    vim.keymap.set({'n', 'v', 'o'}, key, action, { noremap = true })
-    vim.keymap.set({'n', 'v', 'o'}, key:upper(), action:upper(), { noremap = true })
+    if type(key) == 'table' then
+        vim.keymap.set({'n', 'v', 'o'}, key[1], action, { noremap = true })
+        vim.keymap.set({'n', 'v', 'o'}, key[2], action:upper(), { noremap = true })
+    else
+        vim.keymap.set({'n', 'v', 'o'}, key, action, { noremap = true })
+        vim.keymap.set({'n', 'v', 'o'}, key:upper(), action:upper(), { noremap = true })
+    end
 end
 
 full_keymap(keys.h, 'h')
@@ -17,7 +22,7 @@ full_keymap(keys.k, 'k')
 full_keymap(keys.l, 'l')
 
 full_keymap(keys.n, 'n')
-full_keymap(keys.t, 't')
+full_keymap({keys.t, keys.T}, 't')
 
 vim.keymap.set('n', '<C-w>' .. keys.h, '<C-w>h', { noremap = true })
 vim.keymap.set('n', '<C-w>' .. keys.j, '<C-w>j', { noremap = true })
