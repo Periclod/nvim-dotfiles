@@ -17,4 +17,5 @@ return {
     require('plugins.telescope'),
     require('plugins.testing'),
     require('plugins.theme'),
+    require('plugins.treesitter'),
 }
