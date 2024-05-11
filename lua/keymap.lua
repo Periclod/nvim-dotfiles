@@ -35,6 +35,11 @@ vim.keymap.set('n', '<C-w>V', '<C-w>s', { noremap = true })
 vim.keymap.set('n', '<leader>ft', 'z=', { desc = 'Fix typo under cursor' })
 vim.keymap.set('n', '<leader>st', 'zg', { desc = 'Add word under cursor to wordlist' })
 
+-- system clipboard     
+vim.keymap.set('n', '<leader>y', '"+y', { desc = 'Yank to system clipboard' })
+vim.keymap.set('n', '<leader>Y', '"+Y', { desc = 'Yank line to system clipboard' })
+vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank selection to system clipboard' })
+
 -- LSP mappings
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
