@@ -15,15 +15,15 @@
 
 -- Engramm
 return {
-    h = 's',
-    j = 'h',
-    k = 't',
-    l = 'n',
+	h = "s",
+	j = "h",
+	k = "t",
+	l = "n",
 
-    n = 'k',
-    substitute = 'j',
-    t = '-',
-    T = '_',
-    leapf = 'l',
-    leapb = 'L',
+	n = "k",
+	substitute = "j",
+	t = "-",
+	T = "_",
+	leapf = "l",
+	leapb = "L",
 }
