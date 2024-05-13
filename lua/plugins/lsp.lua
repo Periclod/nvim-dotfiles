@@ -51,8 +51,6 @@ return {
 			lspconfig.volar.setup({})
 
 			lspconfig.lua_ls.setup({})
-			lspconfig.rust_analyzer.setup({})
-			lspconfig.psalm.setup({})
 			lspconfig.twiggy_language_server.setup({})
 		end,
 	},

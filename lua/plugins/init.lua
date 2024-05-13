@@ -8,6 +8,7 @@ return {
 	require("plugins.formatting"),
 	require("plugins.git-stuff"),
 	require("plugins.harpoon"),
+	require("plugins.linting"),
 	require("plugins.lsp"),
 	require("plugins.luasnip"),
 	require("plugins.multiline-navigation"),
