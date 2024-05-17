@@ -12,13 +12,6 @@ return {
 		end,
 	},
 	{
-		"numToStr/Comment.nvim",
-		event = "VeryLazy",
-		opts = {
-			-- add any options here
-		},
-	},
-	{
 		"shortcuts/no-neck-pain.nvim",
 		version = "*",
 		lazy = true,
@@ -34,12 +27,14 @@ return {
 			},
 		},
 		cmd = { "NoNeckPain" },
-        keys = { 
-            {
-                "<leader><leader>n", function()
-                    require("no-neck-pain").toggle()
-                end }
-            },
+		keys = {
+			{
+				"<leader><leader>n",
+				function()
+					require("no-neck-pain").toggle()
+				end,
+			},
+		},
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
@@ -95,5 +90,24 @@ return {
 	{
 		"unblevable/quick-scope",
 		event = "VeryLazy",
+		config = function()
+			vim.cmd([[highlight QuickScopePrimary guifg='#af00ff' gui=underline ctermfg=155 cterm=underline]])
+			vim.cmd([[highlight QuickScopeSecondary guifg='#af0000' gui=underline ctermfg=81 cterm=underline]])
+		end,
+	},
+	{
+		"altermo/ultimate-autopair.nvim",
+		event = { "InsertEnter", "CmdlineEnter" },
+		branch = "v0.6", --recommended as each new version will have breaking changes
+		opts = {
+			--Config goes here
+		},
+	},
+	{
+		"windwp/nvim-ts-autotag",
+		event = "VeryLazy",
+		config = function()
+			require("nvim-ts-autotag").setup()
+		end,
 	},
 }

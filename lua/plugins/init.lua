@@ -14,11 +14,13 @@ return {
 	require("plugins.multiline-navigation"),
 	require("plugins.neo-tree"),
 	require("plugins.neodev"),
-	require("plugins.projects"),
+--	require("plugins.projects"),
 	require("plugins.smooth-scroll"),
 	require("plugins.telescope"),
 	require("plugins.testing"),
 	require("plugins.theme"),
 	require("plugins.treesitter"),
 	require("plugins.windows"),
+
+    require("plugins.junk"),
 }

@@ -1,5 +1,7 @@
--- Key replacements for custom/qwerty layout
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
+-- Key replacements for custom/qwerty layout
 local keys = require("layout")
 
 -- Engramm remappings
@@ -40,6 +42,10 @@ vim.keymap.set("n", "<leader>y", '"+y', { desc = "Yank to system clipboard" })
 vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "Yank line to system clipboard" })
 vim.keymap.set("v", "<leader>y", '"+y', { desc = "Yank selection to system clipboard" })
 
+vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste after from system clipboard" })
+vim.keymap.set("n", "<leader>P", '"+P', { desc = "Paste before from system clipboard" })
+vim.keymap.set("v", "<leader>p", '"+p', { desc = "Paste from system clipboard" })
+
 -- LSP mappings
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -71,7 +77,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
 		vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
 		vim.keymap.set("n", "<space>iv", vim.lsp.buf.execute_command, opts)
+
 		vim.keymap.set({ "i", "n", "v" }, "<C-a>", vim.lsp.buf.code_action, opts)
+		vim.keymap.set({ "i", "n", "v" }, "<C-S-a>", function()
+			require("actions-preview").code_actions()
+		end, opts)
 	end,
 })
 
@@ -80,7 +90,15 @@ vim.diagnostic.config({ virtual_text = true })
 vim.keymap.set("n", "<Leader>do", vim.diagnostic.open_float, { desc = "Open Diagnostic floating panel" })
 vim.keymap.set("n", "<D-]>", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "<D-[>", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist)
+
+-- Quickfixlist
+vim.keymap.set("n", "<leader>cq", ":cclose<CR>", { desc = "Close quickfix list" })
+vim.keymap.set("n", "<leader>cn", ":cn<CR>", { desc = "Next quickfix entry" })
+vim.keymap.set("n", "<leader>cp", ":cp<CR>", { desc = "Previous quickfix entry" })
+
+vim.keymap.set("n", "<leader>cl", ":lclose<CR>", { desc = "Close LocList list" })
 
 -- Close current window
 vim.keymap.set("n", "Q", "q", { noremap = true })
