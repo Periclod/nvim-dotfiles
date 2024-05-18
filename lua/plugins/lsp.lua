@@ -1,7 +1,7 @@
 return {
 	{
 		"aznhe21/actions-preview.nvim",
-        lazy = true,
+		lazy = true,
 		opts = {
 			telescope = {
 				sorting_strategy = "ascending",
@@ -21,16 +21,26 @@ return {
 	{
 		"williamboman/mason.nvim",
 		lazy = true,
-		event = "VeryLazy",
 		opts = {},
+        cmd = {
+            "Mason",
+            "MasonInstall",
+            "MasonUpdate",
+            "MasonUninstall",
+            "MasonList",
+            "MasonSearch",
+            "MasonInstallAll",
+            "MasonUpdateAll",
+            "MasonUninstallAll",
+        },
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
 		dependencies = {
 			"neovim/nvim-lspconfig",
 		},
-		event = "VeryLazy",
-		lazy = true,
+		-- event = "VeryLazy",
+		lazy = false,
 		opts = {
 			ensure_installed = {
 				"lua_ls",
@@ -65,6 +75,30 @@ return {
 					},
 				},
 				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+				settings = {
+					javascript = {
+						inlayHints = {
+							includeInlayEnumMemberValueHints = true,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayFunctionParameterTypeHints = true,
+							includeInlayParameterNameHints = "all",
+							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+							includeInlayPropertyDeclarationTypeHints = true,
+							includeInlayVariableTypeHints = true,
+						},
+					},
+					typescript = {
+						inlayHints = {
+							includeInlayEnumMemberValueHints = true,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayFunctionParameterTypeHints = true,
+							includeInlayParameterNameHints = "all",
+							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+							includeInlayPropertyDeclarationTypeHints = true,
+							includeInlayVariableTypeHints = true,
+						},
+					},
+				},
 			})
 
 			lspconfig.volar.setup({})

@@ -29,8 +29,8 @@ return {
 	-- { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 	{
 		"projekt0n/github-nvim-theme",
-		lazy = false, -- make sure we load this during startup if it is your main colorscheme
-		priority = 1000, -- make sure to load this before all the other start plugins
+		lazy = true, -- make sure we load this during startup if it is your main colorscheme
+		-- priority = 1000, -- make sure to load this before all the other start plugins
 		config = function()
 			require("github-theme").setup({
 				options = {
@@ -47,9 +47,30 @@ return {
 						},
 					},
 				},
+				groups = {
+					all = {
+						-- Because for some reason delimiters are hardly visible by default
+						-- Should probably check every now and then if it's fixed
+						Delimiter = { fg = "#6e6e6e" },
+					},
+				},
 			})
-
-			vim.cmd("colorscheme github_light")
 		end,
+	},
+	{
+		"f-person/auto-dark-mode.nvim",
+		lazy = false, -- Don't lazy load because it sets the colorscheme
+		priority = 1000, -- Load first to set the colorscheme for the rest of the plugins
+		config = {
+			-- update_interval = 60000,
+			set_dark_mode = function()
+				vim.o.background = "dark"
+				vim.cmd("colorscheme github_dark")
+			end,
+			set_light_mode = function()
+				vim.o.background = "light"
+				vim.cmd("colorscheme github_light")
+			end,
+		},
 	},
 }
