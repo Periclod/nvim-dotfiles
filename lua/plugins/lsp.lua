@@ -22,17 +22,17 @@ return {
 		"williamboman/mason.nvim",
 		lazy = true,
 		opts = {},
-        cmd = {
-            "Mason",
-            "MasonInstall",
-            "MasonUpdate",
-            "MasonUninstall",
-            "MasonList",
-            "MasonSearch",
-            "MasonInstallAll",
-            "MasonUpdateAll",
-            "MasonUninstallAll",
-        },
+		cmd = {
+			"Mason",
+			"MasonInstall",
+			"MasonUpdate",
+			"MasonUninstall",
+			"MasonList",
+			"MasonSearch",
+			"MasonInstallAll",
+			"MasonUpdateAll",
+			"MasonUninstallAll",
+		},
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
@@ -105,7 +105,25 @@ return {
 
 			lspconfig.lua_ls.setup({})
 			lspconfig.twiggy_language_server.setup({})
-			lspconfig.gopls.setup({})
+			lspconfig.gopls.setup({
+				settings = {
+					gopls = {
+						staticcheck = true,
+						analyses = {
+							fieldalignment = true,
+							unusedvariable = true,
+						},
+						hints = {
+							assignVariableTypes = true,
+							compositeLiteralFields = true,
+							compositeLiteralTypes = true,
+							constantValues = true,
+							parameterNames = true,
+							rangeVariableTypes = true,
+						},
+					},
+				},
+			})
 		end,
 	},
 }

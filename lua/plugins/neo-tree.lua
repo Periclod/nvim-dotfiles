@@ -29,6 +29,18 @@ return {
 				trim_left = "<",
 				trim_right = ">",
 			},
+            windows = {
+                preview = true,
+            }
+		},
+		keys = {
+			{
+				"<leader>.",
+				function()
+					require("mini.files").open(vim.fn.expand("%"))
+				end,
+				desc = "Open file browser at current file",
+			},
 		},
 		init = function()
 			vim.api.nvim_create_user_command("Files", function()
