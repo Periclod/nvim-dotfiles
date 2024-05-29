@@ -5,11 +5,26 @@ return {
 		lazy = true,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-			},
+			-- {
+			-- 	"nvim-telescope/telescope-fzf-native.nvim",
+			-- 	build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+			-- },
+			-- Optional.  If installed, native fzy will be used when match_algorithm is fzy
+			{ "nvim-telescope/telescope-fzy-native.nvim" },
 		},
+		config = function()
+			require("telescope").load_extension("fzy_native")
+			require("telescope").setup({
+				defaults = {
+					mappings = {
+						i = {
+							["<C-Down>"] = require("telescope.actions").cycle_history_next,
+							["<C-Up>"] = require("telescope.actions").cycle_history_prev,
+						},
+					},
+				},
+			})
+		end,
 		keys = {
 			{
 				"<D-f>",
@@ -27,6 +42,18 @@ return {
 				"<C-f>",
 				function()
 					require("telescope.builtin").live_grep()
+				end,
+			},
+			{
+				"<D-r>",
+				function()
+					require("telescope.builtin").resume()
+				end,
+			},
+			{
+				"<D-S-r>",
+				function()
+					require("telescope.builtin").pickers()
 				end,
 			},
 			{
@@ -63,6 +90,28 @@ return {
 				"<leader>qf",
 				function()
 					require("telescope.builtin").quickfix()
+				end,
+			},
+		},
+	},
+	{
+		"danielfalk/smart-open.nvim",
+		branch = "0.2.x",
+		lazy = true,
+		config = function()
+			require("telescope").load_extension("smart_open")
+		end,
+		dependencies = {
+			"kkharji/sqlite.lua",
+		},
+		keys = {
+			{
+				"<D-s>",
+				function()
+					require("telescope").extensions.smart_open.smart_open({
+						cwd_only = true,
+						filename_first = false,
+					})
 				end,
 			},
 		},
