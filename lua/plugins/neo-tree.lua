@@ -29,9 +29,10 @@ return {
 				trim_left = "<",
 				trim_right = ">",
 			},
-            windows = {
-                preview = true,
-            }
+			windows = {
+				preview = true,
+				width_preview = 150,
+			},
 		},
 		keys = {
 			{
@@ -84,8 +85,8 @@ return {
 		name = "window-picker",
 		lazy = true,
 		version = "2.*",
-		config = function()
-			require("window-picker").setup()
-		end,
+		opts = {
+			hints = "floating-big-letter",
+		},
 	},
 }

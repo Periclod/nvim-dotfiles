@@ -21,6 +21,7 @@ return {
 				vue = { "biome" },
 				less = { "biome" },
 				css = { "biome" },
+				json = { "biome" },
 
 				php = { "php_cs_fixer" },
 
@@ -36,7 +37,7 @@ return {
 			},
 		},
 		init = function()
-			vim.api.nvim_create_autocmd({ "BufHidden", "BufUnload", "BufDelete" }, {
+			vim.api.nvim_create_autocmd({ "BufLeave", "BufHidden", "BufUnload", "BufDelete" }, {
 				pattern = "*",
 				callback = function(args)
 					require("conform").format({ async = true, bufnr = args.buf, lsp_fallback = true })

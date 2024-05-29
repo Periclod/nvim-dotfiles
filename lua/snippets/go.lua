@@ -23,11 +23,13 @@ local default_values = {
 	error = function(_, info)
 		if info then
 			info.index = info.index + 1
-
-			return c(info.index, {
-				t(info.err_name),
-				t(string.format('errors.Wrap(%s, "%s")', info.err_name, info.func_name)),
-			})
+			if info.func_name ~= nil then
+				return c(info.index, {
+					t(string.format('fmt.Errorf("failed to %s: %%w", %s)', info.func_name, info.err_name)),
+					t(info.err_name),
+				})
+			end
+			return t(info.err_name)
 		else
 			return t("err")
 		end
@@ -43,7 +45,12 @@ local default_values = {
 	-- Convention: Usually no "*" and Capital is a struct type, so give the option
 	-- to have it be with {} as well.
 	[function(text)
-		return not string.find(text, "*", 1, true) and string.upper(string.sub(text, 1, 1)) == string.sub(text, 1, 1)
+		if string.find(text, "*", 1, true) then
+			return false
+		end
+		local split = vim.split(text, ".", { plain = true })
+		local type_name = split[#split]
+		return string.upper(string.sub(type_name, 1, 1)) == string.sub(type_name, 1, 1)
 	end] = function(text, info)
 		info.index = info.index + 1
 
@@ -84,6 +91,7 @@ end
 
 -- Maps a node type to a handler function.
 local handlers = {
+	--- @param node TSNode
 	parameter_list = function(node, info)
 		local result = {}
 
@@ -106,10 +114,8 @@ local handlers = {
 	end,
 }
 
---- Gets the corresponding result type based on the
---- current function context of the cursor.
----@param info table
-local function go_result_type(info)
+--- @return TSNode|nil
+local function get_surrouning_func()
 	local function_node_types = {
 		function_declaration = true,
 		method_declaration = true,
@@ -126,6 +132,14 @@ local function go_result_type(info)
 		node = node:parent()
 	end
 
+	return node
+end
+
+--- Gets the corresponding result type based on the
+--- current function context of the cursor.
+---@param info table
+local function go_result_type(info)
+	local node = get_surrouning_func()
 	-- Exit if no match
 	if not node then
 		vim.notify("Not inside of a function")
@@ -139,6 +153,7 @@ local function go_result_type(info)
 			return handlers[capture:type()](capture, info)
 		end
 	end
+	return t("")
 end
 
 local go_return_values = function(args)
@@ -148,6 +163,16 @@ local go_return_values = function(args)
 			index = 0,
 			err_name = args[1][1],
 			func_name = args[2][1],
+		})
+	)
+end
+
+local go_stupider_return_values = function(args)
+	return sn(
+		nil,
+		go_result_type({
+			index = 0,
+			err_name = args[1][1],
 		})
 	)
 end
@@ -174,5 +199,12 @@ return {
 			}
 		)
 	),
-	s("ie", fmta("if err != nil {\n\treturn <err>\n}", { err = i(1, "err") })),
+	s(
+		"ie",
+		fmta("if <err> != nil {\n\treturn <result>\n}\n<finish>", {
+			err = i(1, "err"),
+			result = d(2, go_stupider_return_values, { 1 }),
+			finish = i(0),
+		})
+	),
 }

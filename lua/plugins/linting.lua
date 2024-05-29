@@ -28,7 +28,9 @@ return {
 				vue = { "biomejs" },
 				less = { "biomejs" },
 				css = { "biomejs" },
+				json = { "biomejs" },
 			}
+
 			local phpstan = require("lint").linters.phpstan
 			phpstan.args = {
 				"analyze",

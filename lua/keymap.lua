@@ -46,6 +46,9 @@ vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste after from system clipbo
 vim.keymap.set("n", "<leader>P", '"+P', { desc = "Paste before from system clipboard" })
 vim.keymap.set("v", "<leader>p", '"+p', { desc = "Paste from system clipboard" })
 
+vim.keymap.set("n", "<PageUp>", "<C-u>")
+vim.keymap.set("n", "<PageDown>", "<C-d>")
+
 -- LSP mappings
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),

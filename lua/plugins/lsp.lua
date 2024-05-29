@@ -102,6 +102,7 @@ return {
 			})
 
 			lspconfig.volar.setup({})
+            lspconfig.stylelint_lsp.setup({})
 
 			lspconfig.lua_ls.setup({})
 			lspconfig.twiggy_language_server.setup({})

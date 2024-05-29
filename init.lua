@@ -1,3 +1,4 @@
+require("filetypes")
 require("keymap")
 require("config")
 require("neovide")
@@ -27,4 +28,3 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = require("plugins")
 require("lazy").setup(plugins)
-

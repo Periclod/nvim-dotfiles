@@ -37,6 +37,24 @@ return {
 		},
 	},
 	{
+		"kwkarlwang/bufjump.nvim",
+		lazy = true,
+		keys = {
+			{ "<C-S-o>" },
+			{ "<C-S-i>" },
+		},
+		opts = {
+			forward_key = "<C-S-i>",
+			backward_key = "<C-S-o>",
+		},
+	},
+	{
+		"chentoast/marks.nvim",
+		config = function()
+			require("marks").setup()
+		end,
+	},
+	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		event = "VeryLazy",
@@ -50,7 +68,7 @@ return {
 						keymaps = {
 							-- You can use the capture groups defined in textobjects.scm
 							["aa"] = "@parameter.outer",
-							["ia"] = "@parameter.outer",
+							["ia"] = "@parameter.inner",
 							["af"] = "@function.outer",
 							["if"] = "@function.inner",
 							["ac"] = "@class.outer",

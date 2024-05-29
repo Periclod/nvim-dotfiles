@@ -3,7 +3,10 @@ return {
 		"hrsh7th/nvim-cmp",
 		lazy = true,
 		event = "InsertEnter",
-		dependencies = { "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-nvim-lsp-signature-help" },
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
+		},
 		config = function()
 			local cmp = require("cmp")
 
