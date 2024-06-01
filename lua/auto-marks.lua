@@ -9,6 +9,8 @@ augroup VIMRC
   autocmd BufLeave *.ts   normal! mT
   autocmd BufLeave *.vue   normal! mV
   autocmd BufLeave *.php  normal! mP
+
+  autocmd BufLeave *  normal! mL
 augroup END
 ]])
 

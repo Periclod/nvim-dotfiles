@@ -56,6 +56,9 @@ return {
 			require("neodev").setup()
 			local lspconfig = require("lspconfig")
 
+            -- Everywhere utilities
+            lspconfig.typos_lsp.setup({})
+
 			-- PHP
 			lspconfig.phpactor.setup({
 				root_dir = lspconfig.util.root_pattern("composer.json"),
@@ -115,7 +118,11 @@ return {
 			lspconfig.lua_ls.setup({})
 
 			-- Go
-			lspconfig.templ.setup({})
+			lspconfig.templ.setup({
+				cmd_env = {
+					TEMPL_EXPERIMENT = "rawgo",
+				},
+			})
 			lspconfig.gopls.setup({
 				filetypes = { "go", "gomod", "templ" },
 				settings = {

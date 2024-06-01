@@ -67,17 +67,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		-- Buffer local mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		local bufnr = ev.buf
 		local opts = { buffer = ev.buf }
+
+		vim.keymap.set("n", "T", vim.lsp.buf.hover, opts)
 
 		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 		vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
 
-		vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+		vim.keymap.set("n", "gr", function()
+			require("telescope.builtin").lsp_references({})
+		end, opts)
 
-		vim.keymap.set("n", "T", vim.lsp.buf.hover, opts)
-
-		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+		vim.keymap.set("n", "gi", function()
+			require("telescope.builtin").lsp_implementations({})
+		end, opts)
 
 		vim.keymap.set("n", "<C-t>", vim.lsp.buf.signature_help, opts)
 		vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
@@ -86,25 +92,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, opts)
 
-		vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
 		vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
-		vim.keymap.set("n", "<space>iv", vim.lsp.buf.execute_command, opts)
 
 		vim.keymap.set({ "i", "n", "v" }, "<C-a>", vim.lsp.buf.code_action, opts)
 		vim.keymap.set({ "i", "n", "v" }, "<C-S-a>", function()
 			require("actions-preview").code_actions()
 		end, opts)
 
-		vim.keymap.set("n", "<leader>h", function()
-			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-		end, vim.tbl_extend("error", opts, { desc = "Toggle inlay hints" }))
+		if vim.bo[bufnr].filetype ~= "templ" and client and client.server_capabilities.inlayHintProvider then
+			local filter = { bufnr = bufnr }
 
-		vim.lsp.inlay_hint.enable()
-		-- Enable inlay hints by default
-		-- local client = vim.lsp.get_client_by_id(ev.data.client_id)
-		-- if client ~= nil and client.server_capabilities.inlayHintProvider then
-		-- 	vim.lsp.inlay_hint.enable()
-		-- end
+			vim.keymap.set("n", "<leader>h", function()
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(filter), filter)
+			end, vim.tbl_extend("error", opts, { desc = "Toggle inlay hints" }))
+
+			-- Enable inlay hints by default
+			vim.lsp.inlay_hint.enable(true, filter)
+		end
 	end,
 })
 
