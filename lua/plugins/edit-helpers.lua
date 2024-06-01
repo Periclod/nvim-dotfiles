@@ -84,17 +84,17 @@ return {
 			})
 		end,
 	},
-	{
-		"gbprod/substitute.nvim",
-		event = "VeryLazy",
-		opts = {},
-		config = function()
-			vim.keymap.set("n", keys.substitute, require("substitute").operator, { noremap = true })
-			vim.keymap.set("n", keys.substitute .. keys.substitute, require("substitute").line, { noremap = true })
-			vim.keymap.set("n", keys.substitute:upper(), require("substitute").eol, { noremap = true })
-			vim.keymap.set("x", keys.substitute, require("substitute").visual, { noremap = true })
-		end,
-	},
+	-- {
+	-- 	"gbprod/substitute.nvim",
+	-- 	event = "VeryLazy",
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		vim.keymap.set("n", keys.substitute, require("substitute").operator, { noremap = true })
+	-- 		vim.keymap.set("n", keys.substitute .. keys.substitute, require("substitute").line, { noremap = true })
+	-- 		vim.keymap.set("n", keys.substitute:upper(), require("substitute").eol, { noremap = true })
+	-- 		vim.keymap.set("x", keys.substitute, require("substitute").visual, { noremap = true })
+	-- 	end,
+	-- },
 	{
 		"svermeulen/vim-cutlass",
 		event = "VeryLazy",
@@ -103,6 +103,7 @@ return {
 			vim.keymap.set("x", "x", "d", { noremap = true })
 			vim.keymap.set("n", "xx", "dd", { noremap = true })
 			vim.keymap.set("n", "X", "D", { noremap = true })
+			vim.keymap.set("v", "p", '"_p', { noremap = true })
 		end,
 	},
 	{

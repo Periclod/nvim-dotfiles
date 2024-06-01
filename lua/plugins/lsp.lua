@@ -39,7 +39,6 @@ return {
 		dependencies = {
 			"neovim/nvim-lspconfig",
 		},
-		-- event = "VeryLazy",
 		lazy = false,
 		opts = {
 			ensure_installed = {
@@ -56,14 +55,17 @@ return {
 		config = function()
 			require("neodev").setup()
 			local lspconfig = require("lspconfig")
+
+			-- PHP
 			lspconfig.phpactor.setup({
 				root_dir = lspconfig.util.root_pattern("composer.json"),
 			})
+			lspconfig.twiggy_language_server.setup({})
 
+			-- JS/Vue
 			local mason_registry = require("mason-registry")
 			local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
 				.. "/node_modules/@vue/language-server"
-
 			lspconfig.tsserver.setup({
 				init_options = {
 					plugins = {
@@ -74,7 +76,7 @@ return {
 						},
 					},
 				},
-				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+				filetypes = { "templ", "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 				settings = {
 					javascript = {
 						inlayHints = {
@@ -100,13 +102,22 @@ return {
 					},
 				},
 			})
-
 			lspconfig.volar.setup({})
-            lspconfig.stylelint_lsp.setup({})
+			lspconfig.html.setup({
+				filetypes = { "html", "vue", "twig" },
+			})
+			lspconfig.cssls.setup({
+				filetypes = { "css", "less", "vue", "twig" },
+			})
+			lspconfig.stylelint_lsp.setup({})
 
+			-- Lua
 			lspconfig.lua_ls.setup({})
-			lspconfig.twiggy_language_server.setup({})
+
+			-- Go
+			lspconfig.templ.setup({})
 			lspconfig.gopls.setup({
+				filetypes = { "go", "gomod", "templ" },
 				settings = {
 					gopls = {
 						staticcheck = true,

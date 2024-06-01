@@ -11,4 +11,5 @@ if vim.g.neovide then
 
 	vim.g.neovide_refresh_rate = 120
 	vim.g.neovide_refresh_rate_idle = 5
+    -- vim.opt.linespace = 16
 end

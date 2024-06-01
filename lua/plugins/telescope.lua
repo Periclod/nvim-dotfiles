@@ -33,12 +33,6 @@ return {
 				end,
 			},
 			{
-				"<D-o>",
-				function()
-					require("telescope.builtin").buffers()
-				end,
-			},
-			{
 				"<C-f>",
 				function()
 					require("telescope.builtin").live_grep()
@@ -54,6 +48,12 @@ return {
 				"<D-S-r>",
 				function()
 					require("telescope.builtin").pickers()
+				end,
+			},
+            {
+				"<leader>m",
+				function()
+					require("telescope.builtin").marks()
 				end,
 			},
 			{

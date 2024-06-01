@@ -49,6 +49,15 @@ vim.keymap.set("v", "<leader>p", '"+p', { desc = "Paste from system clipboard" }
 vim.keymap.set("n", "<PageUp>", "<C-u>")
 vim.keymap.set("n", "<PageDown>", "<C-d>")
 
+-- Native File/Buffer navigation
+vim.keymap.set("n", "gb", ":ls<CR>:b<space>", { desc = "Navigete between buffers" })
+vim.keymap.set(
+	"n",
+	"<leader>cd",
+	":%bw<CR>:cd ~/Developer/*/",
+	{ desc = "Change working directory to some iserv project" }
+)
+
 -- LSP mappings
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -132,3 +141,7 @@ vim.keymap.set("n", "<C-t>q", "<CMD>tabclose<CR>")
 
 -- clear search highlighting using Ctrl-C
 vim.keymap.set("n", "<C-c>", ":nohl<CR>")
+
+-- Easier marks
+vim.keymap.set("n", "J", ":marks<CR>:normal! `")
+vim.keymap.set("n", "j", "`")

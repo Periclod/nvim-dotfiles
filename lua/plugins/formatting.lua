@@ -16,16 +16,19 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 
-				javascript = { "biome" },
-				typescript = { "biome" },
-				vue = { "biome" },
-				less = { "biome" },
-				css = { "biome" },
-				json = { "biome" },
+				javascript = { "prettierd" },
+				typescript = { "prettierd" },
+				json = { "prettierd" },
+				vue = { "prettierd" },
+				less = { "prettierd" },
+				css = { "prettierd" },
+				html = { "prettierd" },
 
 				php = { "php_cs_fixer" },
+				twig = { "twig_cs_fixer" },
 
 				go = { "gofmt" },
+				templ = { "templ" },
 			},
 		},
 		keys = {

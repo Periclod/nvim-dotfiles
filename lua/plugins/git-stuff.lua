@@ -81,4 +81,35 @@ return {
 			"Neogit",
 		},
 	},
+	{
+		"tpope/vim-fugitive",
+		dependencies = {
+			"tpope/vim-rhubarb",
+			"shumphrey/fugitive-gitlab.vim",
+		},
+		lazy = true,
+		cmd = {
+			"G",
+			"Git",
+			"Gdiffsplit",
+			"Gvdiffsplit",
+			"Gwrite",
+			"Gread",
+
+			"GDelete",
+
+			"GMove",
+			"GRename",
+
+			"Ggrep",
+			"Glgrep",
+
+			"Gedit",
+			"Gsplit",
+			"Gvsplit",
+			"Gtabedit",
+
+			"GBrowse",
+		},
+	},
 }
