@@ -11,44 +11,44 @@ return {
 			"Oil",
 		},
 	},
-	{
-		"echasnovski/mini.files",
-		version = "*",
-		lazy = true,
-		opts = {
-			mappings = {
-				close = "q",
-				go_in = keys.l,
-				go_in_plus = keys.l:upper(),
-				go_out = keys.h,
-				go_out_plus = keys.h:upper(),
-				reset = "<BS>",
-				reveal_cwd = "@",
-				show_help = "g?",
-				synchronize = "=",
-				trim_left = "<",
-				trim_right = ">",
-			},
-			windows = {
-				preview = true,
-				width_preview = 150,
-			},
-		},
-		keys = {
-			{
-				"<leader>.",
-				function()
-					require("mini.files").open(vim.fn.expand("%"))
-				end,
-				desc = "Open file browser at current file",
-			},
-		},
-		init = function()
-			vim.api.nvim_create_user_command("Files", function()
-				require("mini.files").open()
-			end, {})
-		end,
-	},
+	-- {
+	-- 	"echasnovski/mini.files",
+	-- 	version = "*",
+	-- 	lazy = true,
+	-- 	opts = {
+	-- 		mappings = {
+	-- 			close = "q",
+	-- 			go_in = keys.l,
+	-- 			go_in_plus = keys.l:upper(),
+	-- 			go_out = keys.h,
+	-- 			go_out_plus = keys.h:upper(),
+	-- 			reset = "<BS>",
+	-- 			reveal_cwd = "@",
+	-- 			show_help = "g?",
+	-- 			synchronize = "=",
+	-- 			trim_left = "<",
+	-- 			trim_right = ">",
+	-- 		},
+	-- 		windows = {
+	-- 			preview = true,
+	-- 			width_preview = 150,
+	-- 		},
+	-- 	},
+	-- 	keys = {
+	-- 		{
+	-- 			"<leader>.",
+	-- 			function()
+	-- 				require("mini.files").open(vim.fn.expand("%"))
+	-- 			end,
+	-- 			desc = "Open file browser at current file",
+	-- 		},
+	-- 	},
+	-- 	init = function()
+	-- 		vim.api.nvim_create_user_command("Files", function()
+	-- 			require("mini.files").open()
+	-- 		end, {})
+	-- 	end,
+	-- },
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",

@@ -56,8 +56,8 @@ return {
 			require("neodev").setup()
 			local lspconfig = require("lspconfig")
 
-            -- Everywhere utilities
-            lspconfig.typos_lsp.setup({})
+			-- Everywhere utilities
+			lspconfig.typos_lsp.setup({})
 
 			-- PHP
 			lspconfig.phpactor.setup({
@@ -79,7 +79,7 @@ return {
 						},
 					},
 				},
-				filetypes = { "templ", "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 				settings = {
 					javascript = {
 						inlayHints = {
@@ -110,7 +110,7 @@ return {
 				filetypes = { "html", "vue", "twig" },
 			})
 			lspconfig.cssls.setup({
-				filetypes = { "css", "less", "vue", "twig" },
+				filetypes = { "css", "less", "vue" },
 			})
 			lspconfig.stylelint_lsp.setup({})
 
@@ -123,6 +123,7 @@ return {
 					TEMPL_EXPERIMENT = "rawgo",
 				},
 			})
+			lspconfig.htmx.setup({})
 			lspconfig.gopls.setup({
 				filetypes = { "go", "gomod", "templ" },
 				settings = {

@@ -39,6 +39,14 @@ return {
 				end,
 			},
 			{
+				"<C-S-f>",
+				function()
+					require("telescope.builtin").live_grep({
+						default_text = vim.fn.expand("<cword>"),
+					})
+				end,
+			},
+			{
 				"<D-r>",
 				function()
 					require("telescope.builtin").resume()
@@ -50,7 +58,13 @@ return {
 					require("telescope.builtin").pickers()
 				end,
 			},
-            {
+			{
+				"<D-b>",
+				function()
+					require("telescope.builtin").git_branches()
+				end,
+			},
+			{
 				"<leader>m",
 				function()
 					require("telescope.builtin").marks()
