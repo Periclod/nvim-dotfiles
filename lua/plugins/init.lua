@@ -21,6 +21,8 @@ return {
 	require("plugins.theme"),
 	require("plugins.treesitter"),
 	require("plugins.windows"),
+	require("plugins.trouble"),
+	require("plugins.search-replace"),
 
 	require("plugins.junk"),
 }

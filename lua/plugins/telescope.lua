@@ -18,8 +18,14 @@ return {
 				defaults = {
 					mappings = {
 						i = {
-							["<C-Down>"] = require("telescope.actions").cycle_history_next,
-							["<C-Up>"] = require("telescope.actions").cycle_history_prev,
+							["<C-f>"] = function(...)
+								require("trouble.sources.telescope").open(...)
+							end,
+						},
+						n = {
+							["<C-f>"] = function(...)
+								require("trouble.sources.telescope").open(...)
+							end,
 						},
 					},
 				},

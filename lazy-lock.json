@@ -55,6 +55,10 @@
     "branch": "main",
     "commit": "3afa6a053f680e9f1329c4a151db988a482306cd"
   },
+  "edgy.nvim": {
+    "branch": "main",
+    "commit": "de79b7d92a5979cd71a9a1d8b6282515345e5055"
+  },
   "fugitive-gitlab.vim": {
     "branch": "master",
     "commit": "e8dd4c9dfe8ce43503dd81286d4e80f65a978e71"
@@ -70,6 +74,10 @@
   "gitsigns.nvim": {
     "branch": "main",
     "commit": "75dc649106827183547d3bedd4602442340d2f7f"
+  },
+  "grug-far.nvim": {
+    "branch": "main",
+    "commit": "a00db650ed8d76286054e022b0ea12e84e132ede"
   },
   "harpoon": {
     "branch": "harpoon2",
@@ -210,6 +218,10 @@
   "telescope.nvim": {
     "branch": "master",
     "commit": "6312868392331c9c0f22725041f1ec2bef57c751"
+  },
+  "trouble.nvim": {
+    "branch": "main",
+    "commit": "915179759c9459b69faae90a38da6fc1ca6b90d7"
   },
   "ultimate-autopair.nvim": {
     "branch": "v0.6",

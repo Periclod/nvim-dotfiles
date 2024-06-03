@@ -128,7 +128,7 @@ vim.keymap.set("n", "<leader>cp", ":cp<CR>", { desc = "Previous quickfix entry" 
 vim.keymap.set("n", "<leader>cl", ":lclose<CR>", { desc = "Close LocList list" })
 
 -- Close current window
-vim.keymap.set("n", "Q", "q", { noremap = true })
+vim.keymap.set("n", "`", "q", { noremap = true })
 vim.keymap.set("n", "q", ":q<CR>")
 
 -- resizing window
@@ -148,4 +148,4 @@ vim.keymap.set("n", "<C-c>", ":nohl<CR>")
 
 -- Easier marks
 vim.keymap.set("n", "J", ":marks<CR>:normal! `")
-vim.keymap.set("n", "j", "`")
+vim.keymap.set("n", "j", "`", { noremap = true })
