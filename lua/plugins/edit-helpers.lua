@@ -119,7 +119,12 @@ return {
 		event = { "InsertEnter", "CmdlineEnter" },
 		branch = "v0.6", --recommended as each new version will have breaking changes
 		opts = {
-			--Config goes here
+			fastwarp = {
+				map = "<C-e>",
+				rmap = "<C-S-e>",
+				cmap = "<C-e>",
+				rcmap = "<C-S-e>",
+			},
 		},
 	},
 	{

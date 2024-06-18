@@ -30,7 +30,7 @@ local function set_mark(letter, query, root, bufnr)
 
 	local start = captures:start()
 	local end_ = captures:end_()
-	local middle = math.floor((start + end_) / 2)
+	local middle = math.floor((start + end_) / 2) + 1
 
 	vim.api.nvim_call_function("setpos", { "'" .. letter, { bufnr, middle, 1, 0 } })
 end
