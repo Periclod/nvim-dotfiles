@@ -195,7 +195,8 @@ return {
 			lspconfig.cssls.setup({
 				filetypes = { "css", "less", "vue" },
 			})
-			lspconfig.stylelint_lsp.setup({})
+			lspconfig.eslint.setup({})
+			-- lspconfig.stylelint_lsp.setup({})
 
 			-- Lua
 			lspconfig.lua_ls.setup({})

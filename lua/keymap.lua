@@ -26,12 +26,16 @@ full_keymap(keys.l, "l")
 full_keymap(keys.n, "n")
 full_keymap({ keys.t, keys.T }, "t")
 
-vim.keymap.set("n", "<C-w>" .. keys.h, "<C-w>h", { noremap = true })
-vim.keymap.set("n", "<C-w>" .. keys.j, "<C-w>j", { noremap = true })
-vim.keymap.set("n", "<C-w>" .. keys.k, "<C-w>k", { noremap = true })
-vim.keymap.set("n", "<C-w>" .. keys.l, "<C-w>l", { noremap = true })
--- Probably fine with all (engram & qwerty) layouts
-vim.keymap.set("n", "<C-w>V", "<C-w>s", { noremap = true })
+-- Navigation windows
+vim.keymap.set("n", "<C-" .. keys.h .. ">", "<C-w>h", { noremap = true })
+vim.keymap.set("n", "<C-" .. keys.j .. ">", "<C-w>j", { noremap = true })
+vim.keymap.set("n", "<C-" .. keys.k .. ">", "<C-w>k", { noremap = true })
+vim.keymap.set("n", "<C-" .. keys.l .. ">", "<C-w>l", { noremap = true })
+-- resizing window
+vim.keymap.set("n", "<C-w>" .. keys.h, ":vert res +50<CR>", { noremap = true })
+vim.keymap.set("n", "<C-w>" .. keys.l, ":vert res -50<CR>", { noremap = true })
+vim.keymap.set("n", "<C-w>" .. keys.j, ":res -50<CR>", { noremap = true })
+vim.keymap.set("n", "<C-w>" .. keys.k, ":res +50<CR>", { noremap = true })
 
 -- Spell checking
 vim.keymap.set("n", "<leader>ft", "z=", { desc = "Fix typo under cursor" })
@@ -85,7 +89,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			require("telescope.builtin").lsp_implementations({})
 		end, opts)
 
-		vim.keymap.set("n", "<C-t>", vim.lsp.buf.signature_help, opts)
+		-- Has never been once useful for me...
+		-- vim.keymap.set("n", "<C-t>", vim.lsp.buf.signature_help, opts)
 		vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
 		vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
 		vim.keymap.set("n", "<space>wl", function()
@@ -131,21 +136,18 @@ vim.keymap.set("n", "<leader>cl", ":lclose<CR>", { desc = "Close LocList list" }
 vim.keymap.set("n", "`", "q", { noremap = true })
 vim.keymap.set("n", "q", ":q<CR>")
 
--- resizing window
-vim.keymap.set("n", "<C-n>", ":vert res +10<CR>")
-vim.keymap.set("n", "<C-s>", ":vert res -10<CR>")
-vim.keymap.set("n", "<C-h>", ":res +10<CR>")
-
 -- tab navigation
 vim.keymap.set("n", "<C-t>o", "<CMD>tabnew<CR>")
 vim.keymap.set("n", "<C-t>e", "<CMD>tabe %<CR>")
-vim.keymap.set("n", "<C-t>n", "<CMD>tabnext<CR>")
-vim.keymap.set("n", "<C-t>s", "<CMD>tabprev<CR>")
+vim.keymap.set("n", "<C-t><C-" .. keys.l .. ">", "<CMD>tabnext<CR>")
+vim.keymap.set("n", "<C-t><C-" .. keys.h .. ">", "<CMD>tabprev<CR>")
 vim.keymap.set("n", "<C-t>q", "<CMD>tabclose<CR>")
 
 -- clear search highlighting using Ctrl-C
 vim.keymap.set("n", "<C-c>", ":nohl<CR>")
 
--- Easier marks
-vim.keymap.set("n", "J", ":marks<CR>:normal! `")
-vim.keymap.set("n", "j", "`", { noremap = true })
+-- Easier marks (only for engramm layout)
+if keys.j ~= "j" then
+	vim.keymap.set("n", "J", ":marks<CR>:normal! `")
+	vim.keymap.set("n", "j", "`", { noremap = true })
+end

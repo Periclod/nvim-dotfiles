@@ -19,13 +19,14 @@ return {
 				javascript = { "prettierd" },
 				typescript = { "prettierd" },
 				json = { "prettierd" },
+				yaml = { "prettierd" },
 				vue = { "prettierd" },
 				less = { "prettierd" },
 				css = { "prettierd" },
 				html = { "prettierd" },
 
 				php = { "php_cs_fixer" },
-				twig = { "twig_cs_fixer" },
+				-- twig = { "twig_cs_fixer" },
 
 				go = { "gofmt" },
 				templ = { "templ" },

@@ -23,12 +23,12 @@ return {
 			require("lint").linters_by_ft = {
 				php = { "phpstan" },
 
-				javascript = { "biomejs" },
-				typescript = { "biomejs" },
-				vue = { "biomejs" },
-				less = { "biomejs" },
-				css = { "biomejs" },
-				json = { "biomejs" },
+				-- javascript = { "biomejs" },
+				-- typescript = { "biomejs" },
+				-- vue = { "biomejs" },
+				-- less = { "biomejs" },
+				-- css = { "biomejs" },
+				-- json = { "biomejs" },
 			}
 
 			local phpstan = require("lint").linters.phpstan
@@ -49,8 +49,9 @@ return {
 			},
 		},
 		init = function()
-			vim.api.nvim_create_autocmd({ "BufLeave" }, {
-				pattern = "*",
+			vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "BufHidden" }, {
+				-- Since I only use phpstan linter (lsp for everything else), only auto lint php files
+				pattern = "*.php",
 				callback = function(args)
 					lint_buf(args.buf)
 				end,
