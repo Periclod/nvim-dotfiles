@@ -12,6 +12,7 @@
   "cmp-nvim-lsp-signature-help": { "branch": "main", "commit": "031e6ba70b0ad5eee49fd2120ff7a2e325b17fa7" },
   "conform.nvim": { "branch": "master", "commit": "f3b930db4964d60e255c8f9e37b7f2218dfc08cb" },
   "copilot.vim": { "branch": "release", "commit": "53d3091be388ff1edacdb84421ccfa19a446a84d" },
+  "curl.nvim": { "branch": "main", "commit": "8c7e60c4624d05bbab6b62c5d36d7e95fb3848cf" },
   "diffview.nvim": { "branch": "main", "commit": "3afa6a053f680e9f1329c4a151db988a482306cd" },
   "fugitive-gitlab.vim": { "branch": "master", "commit": "e8dd4c9dfe8ce43503dd81286d4e80f65a978e71" },
   "fzf-lua": { "branch": "main", "commit": "b92220ec838c195eb1c711daa69c905b1d7b8d8c" },

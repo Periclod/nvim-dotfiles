@@ -13,6 +13,20 @@ return {
 			{ "nvim-telescope/telescope-fzy-native.nvim" },
 		},
 		config = function()
+			local focus_preview = function(prompt_bufnr)
+				local action_state = require("telescope.actions.state")
+				local picker = action_state.get_current_picker(prompt_bufnr)
+				local prompt_win = picker.prompt_win
+				local previewer = picker.previewer
+				local winid = previewer.state.winid
+				local bufnr = previewer.state.bufnr
+				vim.keymap.set("n", "<Tab>", function()
+					vim.cmd(string.format("noautocmd lua vim.api.nvim_set_current_win(%s)", prompt_win))
+				end, { buffer = bufnr })
+				vim.cmd(string.format("noautocmd lua vim.api.nvim_set_current_win(%s)", winid))
+				-- api.nvim_set_current_win(winid)
+			end
+
 			require("telescope").load_extension("fzy_native")
 			require("telescope").setup({
 				defaults = {
@@ -21,11 +35,13 @@ return {
 							["<C-f>"] = function(...)
 								require("trouble.sources.telescope").open(...)
 							end,
+							["<Tab>"] = focus_preview,
 						},
 						n = {
 							["<C-f>"] = function(...)
 								require("trouble.sources.telescope").open(...)
 							end,
+							["<Tab>"] = focus_preview,
 						},
 					},
 				},

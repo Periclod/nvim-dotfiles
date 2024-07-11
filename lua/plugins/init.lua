@@ -23,6 +23,7 @@ return {
 	require("plugins.windows"),
 	require("plugins.trouble"),
 	require("plugins.search-replace"),
+	require("plugins.util-tools"),
 
 	require("plugins.junk"),
 }
