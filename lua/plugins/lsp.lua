@@ -193,9 +193,17 @@ return {
 				filetypes = { "html", "vue", "twig" },
 			})
 			lspconfig.cssls.setup({
-				filetypes = { "css", "less", "vue" },
+				filetypes = { "css", "less", "scss", "vue" },
 			})
 			lspconfig.eslint.setup({})
+			lspconfig.custom_elements_ls.setup({
+				cmd = {
+					"node",
+					"/Users/andrey.kutlin/Developer/misc/custom-elements-language-server/lib/server/dist/server.js",
+					"--stdio",
+				},
+				filetypes = { "html", "vue", "typescript", "twig" },
+			})
 			-- lspconfig.stylelint_lsp.setup({})
 
 			-- Lua

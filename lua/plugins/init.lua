@@ -26,4 +26,5 @@ return {
 	require("plugins.util-tools"),
 
 	require("plugins.junk"),
+	require("plugins.vcs"),
 }
