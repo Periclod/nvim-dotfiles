@@ -46,7 +46,7 @@ return {
 				"rust_analyzer",
 				"volar",
 				"phpactor",
-				"tsserver",
+				"ts_ls",
 				"psalm",
 				"twiggy",
 				"biome",
@@ -152,7 +152,7 @@ return {
 			local mason_registry = require("mason-registry")
 			local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
 				.. "/node_modules/@vue/language-server"
-			lspconfig.tsserver.setup({
+			lspconfig.ts_ls.setup({
 				init_options = {
 					plugins = {
 						{
@@ -233,6 +233,16 @@ return {
 							constantValues = true,
 							parameterNames = true,
 							rangeVariableTypes = true,
+						},
+					},
+				},
+			})
+
+			lspconfig.sourcekit.setup({
+				capabilities = {
+					workspace = {
+						didChangeWatchedFiles = {
+							dynamicRegistration = true,
 						},
 					},
 				},

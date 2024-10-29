@@ -2,7 +2,7 @@ local format_all = function()
 	local all_buffers = vim.api.nvim_list_bufs()
 	for _, buf in ipairs(all_buffers) do
 		if vim.api.nvim_buf_is_loaded(buf) then
-			require("conform").format({ async = true, bufnr = buf, lsp_fallback = true })
+			require("conform").format({ async = true, bufnr = buf, lsp_fallback = false })
 		end
 	end
 end
@@ -23,6 +23,8 @@ return {
 				vue = { "prettierd" },
 				less = { "prettierd" },
 				css = { "prettierd" },
+				-- css_ls breaks HARD so this is VERY important (since we don't want to disable css_ls or lsp_fallback)
+				scss = { "prettierd" },
 				html = { "prettierd" },
 
 				php = { "php_cs_fixer" },
@@ -30,7 +32,21 @@ return {
 
 				go = { "gofmt" },
 				templ = { "templ" },
+
+				swift = { "swiftlint" },
 			},
+			-- formatters = {
+			-- 	php_cs_fixer = {
+			-- 		append_args = function()
+			-- 			local cwd = require("conform.util").root_file({ "composer.json", "README.md" })
+			-- 			local app_config = cwd .. "app/.php-cs-fixer.php"
+			-- 			if vim.fn.filereadable(app_config) then
+			-- 				return { "--config=" .. app_config }
+			-- 			end
+			-- 			return {}
+			-- 		end,
+			-- 	},
+			-- },
 		},
 		keys = {
 			{

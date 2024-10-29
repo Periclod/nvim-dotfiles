@@ -22,6 +22,7 @@ return {
 		config = function()
 			require("lint").linters_by_ft = {
 				php = { "phpstan" },
+				swift = { "swiftlint" },
 
 				-- javascript = { "biomejs" },
 				-- typescript = { "biomejs" },
