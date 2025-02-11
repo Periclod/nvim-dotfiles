@@ -57,6 +57,9 @@ return {
 			},
 		},
 		init = function()
+			require("conform.formatters.php_cs_fixer").env = {
+				PHP_CS_FIXER_IGNORE_ENV = "1",
+			}
 			vim.api.nvim_create_autocmd({ "BufLeave", "BufHidden", "BufUnload", "BufDelete" }, {
 				pattern = "*",
 				callback = function(args)

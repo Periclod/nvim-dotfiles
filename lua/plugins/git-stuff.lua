@@ -38,13 +38,6 @@ return {
 				end,
 			},
 			{
-				"<leader>uh",
-				function()
-					require("gitsigns").undo_stage_hunk()
-				end,
-			},
-
-			{
 				"<leader>sh",
 				function()
 					require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
@@ -55,13 +48,6 @@ return {
 				"<leader>rh",
 				function()
 					require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-				end,
-				mode = { "v" },
-			},
-			{
-				"<leader>uh",
-				function()
-					require("gitsigns").undo_stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
 				end,
 				mode = { "v" },
 			},

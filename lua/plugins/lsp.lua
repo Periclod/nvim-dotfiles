@@ -148,63 +148,73 @@ return {
                 },
             })
 
-            -- JS/Vue
-            local mason_registry = require("mason-registry")
-            local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
-                .. "/node_modules/@vue/language-server"
-            lspconfig.ts_ls.setup({
-                init_options = {
-                    plugins = {
-                        {
-                            name = "@vue/typescript-plugin",
-                            location = vue_language_server_path,
-                            languages = { "vue" },
-                        },
-                    },
-                },
-                filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-                settings = {
-                    javascript = {
-                        inlayHints = {
-                            includeInlayEnumMemberValueHints = true,
-                            includeInlayFunctionLikeReturnTypeHints = true,
-                            includeInlayFunctionParameterTypeHints = true,
-                            includeInlayParameterNameHints = "all",
-                            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                            includeInlayPropertyDeclarationTypeHints = true,
-                            includeInlayVariableTypeHints = true,
-                        },
-                    },
-                    typescript = {
-                        inlayHints = {
-                            includeInlayEnumMemberValueHints = true,
-                            includeInlayFunctionLikeReturnTypeHints = true,
-                            includeInlayFunctionParameterTypeHints = true,
-                            includeInlayParameterNameHints = "all",
-                            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                            includeInlayPropertyDeclarationTypeHints = true,
-                            includeInlayVariableTypeHints = true,
-                        },
-                    },
-                },
-            })
-            lspconfig.volar.setup({})
-            lspconfig.html.setup({
-                filetypes = { "html", "vue", "twig" },
-            })
-            lspconfig.cssls.setup({
-                filetypes = { "css", "less", "scss", "vue" },
-            })
-            lspconfig.eslint.setup({})
-            lspconfig.custom_elements_ls.setup({
-                cmd = {
-                    "node",
-                    "/Users/andrey.kutlin/Developer/misc/custom-elements-language-server/lib/server/dist/server.js",
-                    "--stdio",
-                },
-                filetypes = { "html", "vue", "typescript", "twig" },
-            })
-            -- lspconfig.stylelint_lsp.setup({})
+			-- JS/Vue
+			local mason_registry = require("mason-registry")
+			local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+				.. "/node_modules/@vue/language-server"
+			lspconfig.ts_ls.setup({
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = vue_language_server_path,
+							languages = { "vue" },
+						},
+					},
+				},
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+				settings = {
+					javascript = {
+						inlayHints = {
+							includeInlayEnumMemberValueHints = true,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayFunctionParameterTypeHints = true,
+							includeInlayParameterNameHints = "all",
+							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+							includeInlayPropertyDeclarationTypeHints = true,
+							includeInlayVariableTypeHints = true,
+						},
+					},
+					typescript = {
+						inlayHints = {
+							includeInlayEnumMemberValueHints = true,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayFunctionParameterTypeHints = true,
+							includeInlayParameterNameHints = "all",
+							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+							includeInlayPropertyDeclarationTypeHints = true,
+							includeInlayVariableTypeHints = true,
+						},
+					},
+				},
+			})
+			lspconfig.volar.setup({})
+			lspconfig.html.setup({
+				filetypes = { "html", "vue", "twig" },
+			})
+			lspconfig.cssls.setup({
+				filetypes = { "css", "less", "scss", "vue" },
+			})
+			lspconfig.eslint.setup({})
+			lspconfig.custom_elements_ls.setup({
+				cmd = {
+					"node",
+					"/Users/andrey.kutlin/Developer/misc/custom-elements-language-server/lib/server/dist/server.js",
+					"--stdio",
+				},
+				filetypes = { "html", "vue", "typescript", "twig" },
+			})
+			-- lspconfig.stylelint_lsp.setup({})
+			--
+			lspconfig.rust_analyzer.setup({
+				settings = {
+					["rust-analyzer"] = {
+						checkOnSave = {
+							command = "clippy",
+						},
+					},
+				},
+			})
 
             -- Lua
             lspconfig.lua_ls.setup({})
@@ -239,15 +249,17 @@ return {
                 },
             })
 
-            lspconfig.sourcekit.setup({
-                capabilities = {
-                    workspace = {
-                        didChangeWatchedFiles = {
-                            dynamicRegistration = true,
-                        },
-                    },
-                },
-            })
-        end,
-    },
+			lspconfig.sourcekit.setup({
+				capabilities = {
+					workspace = {
+						didChangeWatchedFiles = {
+							dynamicRegistration = true,
+						},
+					},
+				},
+			})
+
+			lspconfig.bashls.setup({})
+		end,
+	},
 }

@@ -23,6 +23,7 @@ return {
 			require("lint").linters_by_ft = {
 				php = { "phpstan" },
 				swift = { "swiftlint" },
+				bash = { "shellcheck" },
 
 				-- javascript = { "biomejs" },
 				-- typescript = { "biomejs" },
@@ -58,5 +59,20 @@ return {
 				end,
 			})
 		end,
+	},
+	{
+		"dmmulroy/tsc.nvim",
+		opts = {
+			auto_open_qflist = true,
+			use_trouble_qflist = true,
+			use_diagnostics = true,
+			-- todo: PR to make this a function for per project config
+			bin_path = "./app/node_modules/.bin/vue-tsc",
+		},
+		cmd = {
+			"TSC",
+			"TSCOpen",
+			"TSCClose",
+		},
 	},
 }

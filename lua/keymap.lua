@@ -127,8 +127,8 @@ vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist)
 
 -- Quickfixlist
 vim.keymap.set("n", "<leader>cq", ":cclose<CR>", { desc = "Close quickfix list" })
-vim.keymap.set("n", "<leader>cn", ":cn<CR>", { desc = "Next quickfix entry" })
-vim.keymap.set("n", "<leader>cp", ":cp<CR>", { desc = "Previous quickfix entry" })
+vim.keymap.set("n", "<leader>cn", ":cnext<CR>", { desc = "Next quickfix entry" })
+vim.keymap.set("n", "<leader>cp", ":cprevioush<CR>", { desc = "Previous quickfix entry" })
 
 vim.keymap.set("n", "<leader>cl", ":lclose<CR>", { desc = "Close LocList list" })
 
