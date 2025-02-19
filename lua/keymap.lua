@@ -78,15 +78,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "T", vim.lsp.buf.hover, opts)
 
 		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+		vim.keymap.set("n", "gd", function()
+			require("telescope.builtin").lsp_definitions({ fname_width = 75 })
+		end, opts)
 		vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
 
 		vim.keymap.set("n", "gr", function()
-			require("telescope.builtin").lsp_references({})
+			require("telescope.builtin").lsp_references({ fname_width = 75 })
 		end, opts)
 
 		vim.keymap.set("n", "gi", function()
-			require("telescope.builtin").lsp_implementations({})
+			require("telescope.builtin").lsp_implementations({ fname_width = 75 })
 		end, opts)
 
 		-- Has never been once useful for me...

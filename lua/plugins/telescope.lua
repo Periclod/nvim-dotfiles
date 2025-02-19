@@ -30,6 +30,13 @@ return {
 			require("telescope").load_extension("fzy_native")
 			require("telescope").setup({
 				defaults = {
+					layout_strategy = "vertical",
+					layout_config = {
+						prompt_position = "bottom",
+						preview_height = 0.7,
+					},
+					path_display = { "smart" },
+					fname_width = 75,
 					mappings = {
 						i = {
 							["<C-f>"] = function(...)
