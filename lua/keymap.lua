@@ -112,9 +112,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.keymap.set("n", "<leader>h", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(filter), filter)
 			end, vim.tbl_extend("error", opts, { desc = "Toggle inlay hints" }))
-
-			-- Enable inlay hints by default
-			vim.lsp.inlay_hint.enable(true, filter)
 		end
 	end,
 })

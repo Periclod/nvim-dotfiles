@@ -142,6 +142,12 @@ return {
 		branch = "0.2.x",
 		lazy = true,
 		config = function()
+			local ignored = require("telescope._extensions.smart_open.default_config").ignore_patterns
+			ignored[#ignored + 1] = ".conform.*"
+
+			require("smart-open").setup({
+				ignore_patterns = ignored,
+			})
 			require("telescope").load_extension("smart_open")
 		end,
 		dependencies = {

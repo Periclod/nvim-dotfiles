@@ -2,7 +2,6 @@ require("filetypes")
 require("keymap")
 require("config")
 require("neovide")
-require("auto-marks")
 
 -- Highlight yank using native nvim only api
 vim.api.nvim_create_autocmd("TextYankPost", {
