@@ -226,8 +226,8 @@ return {
 				},
 			})
 			lspconfig.bashls.setup({})
-			lspconfig.htmx.setup({})
-			lspconfig.tailwindcss.setup({})
+			-- lspconfig.htmx.setup({})
+			-- lspconfig.tailwindcss.setup({})
 			lspconfig.gopls.setup({
 				filetypes = { "go", "gomod", "templ" },
 				settings = {

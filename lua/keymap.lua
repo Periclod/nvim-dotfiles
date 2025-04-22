@@ -74,6 +74,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
 		local bufnr = ev.buf
 		local opts = { buffer = ev.buf }
+		local opts_nowait = { buffer = ev.buf, nowait = true }
 
 		vim.keymap.set("n", "T", vim.lsp.buf.hover, opts)
 
@@ -83,9 +84,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end, opts)
 		vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
 
+		-- nvim has some default keymaps starting with "gr"
+		-- https://github.com/neovim/neovim/pull/28650
 		vim.keymap.set("n", "gr", function()
 			require("telescope.builtin").lsp_references({ fname_width = 75 })
-		end, opts)
+		end, opts_nowait)
 
 		vim.keymap.set("n", "gi", function()
 			require("telescope.builtin").lsp_implementations({ fname_width = 75 })
