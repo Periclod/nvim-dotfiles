@@ -22,9 +22,10 @@ return {
 		config = function()
 			require("lint").linters_by_ft = {
 				php = { "phpstan" },
-				swift = { "swiftlint" },
-				bash = { "shellcheck" },
+				python = { "mypy" },
 
+				-- swift = { "swiftlint" },
+				-- bash = { "shellcheck" },
 				-- javascript = { "biomejs" },
 				-- typescript = { "biomejs" },
 				-- vue = { "biomejs" },
@@ -34,11 +35,21 @@ return {
 			}
 
 			local phpstan = require("lint").linters.phpstan
+			phpstan.cmd = vim.fn.expand("~/.local/scripts/iserv-phpstan")
 			phpstan.args = {
 				"analyze",
 				"--error-format=json",
 				"--no-progress",
-				"-cphpstan.local.neon",
+				function()
+					if vim.fn.filereadable(vim.fn.getcwd() .. "/phpstan.local.neon") == 1 then
+						return "-cphpstan.local.neon"
+					elseif vim.fn.filereadable(vim.fn.getcwd() .. "/app/phpstan.neon") == 1 then
+						return "-capp/phpstan.neon"
+					elseif vim.fn.filereadable(vim.fn.getcwd() .. "/phpstan.neon") == 1 then
+						return "-cphpstan.neon"
+					end
+					return ""
+				end,
 				"--memory-limit=2G",
 			}
 		end,
@@ -51,9 +62,9 @@ return {
 			},
 		},
 		init = function()
-			vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "BufHidden" }, {
-				-- Since I only use phpstan linter (lsp for everything else), only auto lint php files
-				pattern = "*.php",
+			vim.api.nvim_create_autocmd({ "BufWrite" }, {
+				-- Only mypy and phpstan are linters, rest are lsps or formatters
+				pattern = { "*.php", "*.py" },
 				callback = function(args)
 					lint_buf(args.buf)
 				end,

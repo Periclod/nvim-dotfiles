@@ -65,9 +65,26 @@ return {
 			-- })
 			lspconfig.twiggy_language_server.setup({})
 			lspconfig.intelephense.setup({
+				root_dir = function(pattern)
+					local composer_root = lspconfig.util.root_pattern("composer.json")(pattern)
+					if composer_root then
+						return composer_root
+					end
+					local repo_root = lspconfig.util.root_pattern(".git")(pattern)
+					if repo_root then
+						-- if vim.fn.filereadable(vim.fs.joinpath(repo_root, "app", "composer.json")) == 1 then
+						-- 	return vim.fs.joinpath(repo_root, "app")
+						-- end
+						return repo_root
+					end
+
+					return vim.fs.dirname(vim.fn.getcwd())
+				end,
 				settings = {
 					intelephense = {
 						stubs = {
+							"gmagick",
+							"imagick",
 							"ds",
 							"apache",
 							"bcmath",
@@ -260,6 +277,18 @@ return {
 			})
 
 			lspconfig.bashls.setup({})
+
+			lspconfig.pyright.setup({
+				-- settings = {
+				-- 	virtualenv = {
+				-- 		path = "/Users/andrey.kutlin/Developer/misc/venv",
+				-- 	},
+				-- },
+				cmd_env = {
+					VIRTUAL_ENV = ".venv",
+				},
+			})
+			lspconfig.ruff.setup({})
 		end,
 	},
 }
