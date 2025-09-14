@@ -64,6 +64,7 @@ return {
 			-- 	root_dir = lspconfig.util.root_pattern("composer.json"),
 			-- })
 			lspconfig.twiggy_language_server.setup({})
+			-- lspconfig.psalm.setup({})
 			lspconfig.intelephense.setup({
 				root_dir = function(pattern)
 					local composer_root = lspconfig.util.root_pattern("composer.json")(pattern)
@@ -159,6 +160,11 @@ return {
 							"zlib",
 						},
 						environment = {
+							-- davical stuff
+							-- includePaths = {
+							-- 	"/Users/andrey.kutlin/Developer/poweb/server-davical/awl/inc",
+							-- 	"/Users/andrey.kutlin/Developer/poweb/server-davical/davical/inc",
+							-- },
 							phpVersion = "8.2",
 						},
 					},
@@ -289,6 +295,7 @@ return {
 				},
 			})
 			lspconfig.ruff.setup({})
+			lspconfig.docker_language_server.setup({})
 		end,
 	},
 }

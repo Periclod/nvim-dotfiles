@@ -21,6 +21,7 @@ return {
 		lazy = true,
 		config = function()
 			require("lint").linters_by_ft = {
+				-- php = { "phpstan", "psalm" },
 				php = { "phpstan" },
 				python = { "mypy" },
 
@@ -52,6 +53,10 @@ return {
 				end,
 				"--memory-limit=2G",
 			}
+
+			local psalm = require("lint").linters.psalm
+			psalm.cmd = "./run-psalm.sh"
+			psalm.ignore_exitcode = true
 		end,
 		keys = {
 			{
