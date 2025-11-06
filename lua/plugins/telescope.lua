@@ -11,6 +11,7 @@ return {
 			-- },
 			-- Optional.  If installed, native fzy will be used when match_algorithm is fzy
 			{ "nvim-telescope/telescope-fzy-native.nvim" },
+			{ "nvim-telescope/telescope-dap.nvim" },
 		},
 		config = function()
 			local focus_preview = function(prompt_bufnr)
@@ -28,6 +29,7 @@ return {
 			end
 
 			require("telescope").load_extension("fzy_native")
+			require("telescope").load_extension("dap")
 			require("telescope").setup({
 				defaults = {
 					layout_strategy = "vertical",
@@ -100,7 +102,7 @@ return {
 				end,
 			},
 			{
-				"<leader>b",
+				"<leader>e",
 				function()
 					require("telescope.builtin").buffers()
 				end,

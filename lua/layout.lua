@@ -9,7 +9,7 @@ if vim.fn.filereadable(vim.fn.expand("~/.config/qwerty")) == 1 then
 		l = "l",
 
 		n = "n",
-		substitute = "s",
+		substitute = "r",
 		t = "t",
 		T = "T",
 		leapf = "-",
@@ -24,7 +24,7 @@ else
 		l = "n",
 
 		n = "k",
-		substitute = "j",
+		substitute = "r",
 		t = "-",
 		T = "_",
 		leapf = "l",

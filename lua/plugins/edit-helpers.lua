@@ -84,17 +84,22 @@ return {
 			})
 		end,
 	},
-	-- {
-	-- 	"gbprod/substitute.nvim",
-	-- 	event = "VeryLazy",
-	-- 	opts = {},
-	-- 	config = function()
-	-- 		vim.keymap.set("n", keys.substitute, require("substitute").operator, { noremap = true })
-	-- 		vim.keymap.set("n", keys.substitute .. keys.substitute, require("substitute").line, { noremap = true })
-	-- 		vim.keymap.set("n", keys.substitute:upper(), require("substitute").eol, { noremap = true })
-	-- 		vim.keymap.set("x", keys.substitute, require("substitute").visual, { noremap = true })
-	-- 	end,
-	-- },
+	{
+		"gbprod/substitute.nvim",
+		event = "VeryLazy",
+		opts = {},
+		config = function()
+			vim.keymap.set("n", "<leader>" .. keys.substitute, require("substitute").operator, { noremap = true })
+			vim.keymap.set(
+				"n",
+				"<leader>" .. keys.substitute .. keys.substitute,
+				require("substitute").line,
+				{ noremap = true }
+			)
+			vim.keymap.set("n", "<leader>" .. keys.substitute:upper(), require("substitute").eol, { noremap = true })
+			vim.keymap.set("x", "<leader>" .. keys.substitute, require("substitute").visual, { noremap = true })
+		end,
+	},
 	{
 		"svermeulen/vim-cutlass",
 		event = "VeryLazy",
@@ -106,14 +111,14 @@ return {
 			vim.keymap.set("v", "p", '"_p', { noremap = true })
 		end,
 	},
-	{
-		"unblevable/quick-scope",
-		event = "VeryLazy",
-		config = function()
-			vim.cmd([[highlight QuickScopePrimary guifg='#af00ff' gui=underline ctermfg=155 cterm=underline]])
-			vim.cmd([[highlight QuickScopeSecondary guifg='#af0000' gui=underline ctermfg=81 cterm=underline]])
-		end,
-	},
+	-- {
+	-- 	"unblevable/quick-scope",
+	-- 	event = "VeryLazy",
+	-- 	config = function()
+	-- 		vim.cmd([[highlight QuickScopePrimary guifg='#af00ff' gui=underline ctermfg=155 cterm=underline]])
+	-- 		vim.cmd([[highlight QuickScopeSecondary guifg='#af0000' gui=underline ctermfg=81 cterm=underline]])
+	-- 	end,
+	-- },
 	{
 		"altermo/ultimate-autopair.nvim",
 		event = { "InsertEnter", "CmdlineEnter" },

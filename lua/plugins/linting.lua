@@ -54,9 +54,9 @@ return {
 				"--memory-limit=2G",
 			}
 
-			local psalm = require("lint").linters.psalm
-			psalm.cmd = "./run-psalm.sh"
-			psalm.ignore_exitcode = true
+			-- local psalm = require("lint").linters.psalm
+			-- psalm.cmd = "./run-psalm.sh"
+			-- psalm.ignore_exitcode = true
 		end,
 		keys = {
 			{
@@ -78,13 +78,29 @@ return {
 	},
 	{
 		"dmmulroy/tsc.nvim",
-		opts = {
-			auto_open_qflist = true,
-			use_trouble_qflist = true,
-			use_diagnostics = true,
-			-- todo: PR to make this a function for per project config
-			bin_path = "./app/node_modules/.bin/vue-tsc",
-		},
+		lazy = true,
+		config = function()
+			require("tsc").setup({
+				auto_open_qflist = true,
+				use_trouble_qflist = true,
+				use_diagnostics = true,
+				-- todo: PR to make this a function for per project config
+				bin_path = (function()
+					local cwd = vim.fn.getcwd()
+					local pattern = require("lspconfig").util.root_pattern("node_modules")
+					-- Monorepo support
+					while cwd ~= "/" do
+						if vim.fn.filereadable(cwd .. "/node_modules/.bin/vue-tsc") == 1 then
+							return cwd .. "/node_modules/.bin/vue-tsc"
+						elseif vim.fn.filereadable(cwd .. "/node_modules/.bin/tsc") == 1 then
+							return cwd .. "/node_modules/.bin/tsc"
+						end
+						cwd = pattern(cwd .. "/..")
+					end
+					return "./node_modules/.bin/vue-tsc"
+				end)(),
+			})
+		end,
 		cmd = {
 			"TSC",
 			"TSCOpen",

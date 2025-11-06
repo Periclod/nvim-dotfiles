@@ -70,8 +70,10 @@ return {
 			}),
 			require("neotest-vitest")({
 				cwd = function(path)
-					-- TODO: check project folder
-					return vim.fn.getcwd() .. "/app/"
+					return require("lspconfig").util.root_pattern({ "vite.config.ts", "vitest.config.ts" })(path)
+				end,
+				filter_dir = function(name, rel_path, root)
+					return name ~= "node_modules" and name ~= "deps"
 				end,
 			}),
 		}

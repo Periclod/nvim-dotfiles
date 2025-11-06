@@ -32,10 +32,10 @@ vim.keymap.set("n", "<C-" .. keys.j .. ">", "<C-w>j", { noremap = true })
 vim.keymap.set("n", "<C-" .. keys.k .. ">", "<C-w>k", { noremap = true })
 vim.keymap.set("n", "<C-" .. keys.l .. ">", "<C-w>l", { noremap = true })
 -- resizing window
-vim.keymap.set("n", "<C-w>" .. keys.h, ":vert res +50<CR>", { noremap = true })
-vim.keymap.set("n", "<C-w>" .. keys.l, ":vert res -50<CR>", { noremap = true })
-vim.keymap.set("n", "<C-w>" .. keys.j, ":res -50<CR>", { noremap = true })
-vim.keymap.set("n", "<C-w>" .. keys.k, ":res +50<CR>", { noremap = true })
+vim.keymap.set("n", "<C-w>" .. keys.h, ":vert res +25<CR>", { noremap = true })
+vim.keymap.set("n", "<C-w>" .. keys.l, ":vert res -25<CR>", { noremap = true })
+vim.keymap.set("n", "<C-w>" .. keys.j, ":res -10<CR>", { noremap = true })
+vim.keymap.set("n", "<C-w>" .. keys.k, ":res +10<CR>", { noremap = true })
 
 -- Spell checking
 vim.keymap.set("n", "<leader>ft", "z=", { desc = "Fix typo under cursor" })

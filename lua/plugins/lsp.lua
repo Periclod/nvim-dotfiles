@@ -20,31 +20,33 @@ return {
 	},
 	{
 		"williamboman/mason.nvim",
-		lazy = true,
-		opts = {},
-		cmd = {
-			"Mason",
-			"MasonInstall",
-			"MasonUpdate",
-			"MasonUninstall",
-			"MasonList",
-			"MasonSearch",
-			"MasonInstallAll",
-			"MasonUpdateAll",
-			"MasonUninstallAll",
+		-- Can't be lazy because it sets the $MASON variable I need for volar + ts to work
+		lazy = false,
+		opts = {
+			ensure_installed = {
+				"lua_ls",
+				"rust_analyzer",
+				"vue_ls",
+				"phpactor",
+				"ts_ls",
+				"psalm",
+				"twiggy",
+				"biome",
+			},
 		},
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
 		dependencies = {
 			"neovim/nvim-lspconfig",
+			"williamboman/mason.nvim",
 		},
 		lazy = false,
 		opts = {
 			ensure_installed = {
 				"lua_ls",
 				"rust_analyzer",
-				"volar",
+				"vue_ls",
 				"phpactor",
 				"ts_ls",
 				"psalm",
@@ -53,249 +55,116 @@ return {
 			},
 		},
 		config = function()
-			require("neodev").setup()
-			local lspconfig = require("lspconfig")
+			vim.lsp.set_log_level("debug")
 
-			-- Everywhere utilities
-			lspconfig.typos_lsp.setup({})
+			local lsps = {
+				-- Everywhere utilities
+				{ "typos_lsp" },
+				{ "twiggy_language_server" },
+				{
+					"intelephense",
+					require("plugins.lsp.intelephense"),
+				},
+				{
+					"ts_ls",
+					require("plugins.lsp.ts_ls"),
+				},
+				{ "vue_ls" },
+				{ "html", {
+					filetypes = { "html", "vue", "twig" },
+				} },
+				{ "cssls", {
+					filetypes = { "css", "less", "scss", "vue" },
+				} },
+				{ "somesass_ls" },
+				{ "eslint" },
+				{
+					"custom_elements_ls",
+					{
 
-			-- PHP
-			-- lspconfig.phpactor.setup({
-			-- 	root_dir = lspconfig.util.root_pattern("composer.json"),
-			-- })
-			lspconfig.twiggy_language_server.setup({})
-			-- lspconfig.psalm.setup({})
-			lspconfig.intelephense.setup({
-				root_dir = function(pattern)
-					local composer_root = lspconfig.util.root_pattern("composer.json")(pattern)
-					if composer_root then
-						return composer_root
-					end
-					local repo_root = lspconfig.util.root_pattern(".git")(pattern)
-					if repo_root then
-						-- if vim.fn.filereadable(vim.fs.joinpath(repo_root, "app", "composer.json")) == 1 then
-						-- 	return vim.fs.joinpath(repo_root, "app")
-						-- end
-						return repo_root
-					end
-
-					return vim.fs.dirname(vim.fn.getcwd())
-				end,
-				settings = {
-					intelephense = {
-						stubs = {
-							"gmagick",
-							"imagick",
-							"ds",
-							"apache",
-							"bcmath",
-							"bz2",
-							"calendar",
-							"com_dotnet",
-							"Core",
-							"ctype",
-							"curl",
-							"date",
-							"dba",
-							"dom",
-							"enchant",
-							"exif",
-							"FFI",
-							"fileinfo",
-							"filter",
-							"fpm",
-							"ftp",
-							"gd",
-							"gettext",
-							"gmp",
-							"hash",
-							"iconv",
-							"imap",
-							"intl",
-							"json",
-							"ldap",
-							"libxml",
-							"mbstring",
-							"meta",
-							"mysqli",
-							"oci8",
-							"odbc",
-							"openssl",
-							"pcntl",
-							"pcre",
-							"PDO",
-							"pdo_ibm",
-							"pdo_mysql",
-							"pdo_pgsql",
-							"pdo_sqlite",
-							"pgsql",
-							"Phar",
-							"posix",
-							"pspell",
-							"readline",
-							"Reflection",
-							"session",
-							"shmop",
-							"SimpleXML",
-							"snmp",
-							"soap",
-							"sockets",
-							"sodium",
-							"SPL",
-							"sqlite3",
-							"standard",
-							"superglobals",
-							"sysvmsg",
-							"sysvsem",
-							"sysvshm",
-							"tidy",
-							"tokenizer",
-							"xml",
-							"xmlreader",
-							"xmlrpc",
-							"xmlwriter",
-							"xsl",
-							"Zend OPcache",
-							"zip",
-							"zlib",
+						cmd = {
+							"node",
+							"/Users/andrey.kutlin/Developer/misc/custom-elements-language-server/lib/server/dist/server.js",
+							"--stdio",
 						},
-						environment = {
-							-- davical stuff
-							-- includePaths = {
-							-- 	"/Users/andrey.kutlin/Developer/poweb/server-davical/awl/inc",
-							-- 	"/Users/andrey.kutlin/Developer/poweb/server-davical/davical/inc",
-							-- },
-							phpVersion = "8.2",
+						filetypes = { "html", "vue", "typescript", "twig" },
+					},
+				},
+				{
+					"rust_analyzer",
+					{
+
+						settings = {
+							["rust-analyzer"] = {
+								checkOnSave = {
+									command = "clippy",
+								},
+							},
 						},
 					},
 				},
-			})
+				{ "lua_ls" },
+				{ "bashls" },
+				{ "templ", {
+					cmd_env = {
+						TEMPL_EXPERIMENT = "rawgo",
+					},
+				} },
+				{
+					"gopls",
+					{
 
-			-- JS/Vue
-			local mason_registry = require("mason-registry")
-			local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
-				.. "/node_modules/@vue/language-server"
-			lspconfig.ts_ls.setup({
-				init_options = {
-					plugins = {
-						{
-							name = "@vue/typescript-plugin",
-							location = vue_language_server_path,
-							languages = { "vue" },
+						filetypes = { "go", "gomod", "templ" },
+						settings = {
+							gopls = {
+								staticcheck = true,
+								analyses = {
+									fieldalignment = true,
+									unusedvariable = true,
+								},
+								hints = {
+									assignVariableTypes = true,
+									compositeLiteralFields = true,
+									compositeLiteralTypes = true,
+									constantValues = true,
+									parameterNames = true,
+									rangeVariableTypes = true,
+								},
+							},
 						},
 					},
 				},
-				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-				settings = {
-					javascript = {
-						inlayHints = {
-							includeInlayEnumMemberValueHints = true,
-							includeInlayFunctionLikeReturnTypeHints = true,
-							includeInlayFunctionParameterTypeHints = true,
-							includeInlayParameterNameHints = "all",
-							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-							includeInlayPropertyDeclarationTypeHints = true,
-							includeInlayVariableTypeHints = true,
-						},
-					},
-					typescript = {
-						inlayHints = {
-							includeInlayEnumMemberValueHints = true,
-							includeInlayFunctionLikeReturnTypeHints = true,
-							includeInlayFunctionParameterTypeHints = true,
-							includeInlayParameterNameHints = "all",
-							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-							includeInlayPropertyDeclarationTypeHints = true,
-							includeInlayVariableTypeHints = true,
+				{
+					"sourcekit",
+					{
+
+						capabilities = {
+							workspace = {
+								didChangeWatchedFiles = {
+									dynamicRegistration = true,
+								},
+							},
 						},
 					},
 				},
-			})
-			lspconfig.volar.setup({})
-			lspconfig.html.setup({
-				filetypes = { "html", "vue", "twig" },
-			})
-			lspconfig.cssls.setup({
-				filetypes = { "css", "less", "scss", "vue" },
-			})
-			lspconfig.eslint.setup({})
-			lspconfig.custom_elements_ls.setup({
-				cmd = {
-					"node",
-					"/Users/andrey.kutlin/Developer/misc/custom-elements-language-server/lib/server/dist/server.js",
-					"--stdio",
-				},
-				filetypes = { "html", "vue", "typescript", "twig" },
-			})
-			-- lspconfig.stylelint_lsp.setup({})
-			--
-			lspconfig.rust_analyzer.setup({
-				settings = {
-					["rust-analyzer"] = {
-						checkOnSave = {
-							command = "clippy",
-						},
+				{ "pyright", {
+					cmd_env = {
+						VIRTUAL_ENV = ".venv",
 					},
-				},
-			})
+				} },
+				{ "ruff" },
+				{ "docker_language_server" },
+			}
 
-			-- Lua
-			lspconfig.lua_ls.setup({})
-
-			-- Go
-			lspconfig.templ.setup({
-				cmd_env = {
-					TEMPL_EXPERIMENT = "rawgo",
-				},
-			})
-			lspconfig.bashls.setup({})
-			-- lspconfig.htmx.setup({})
-			-- lspconfig.tailwindcss.setup({})
-			lspconfig.gopls.setup({
-				filetypes = { "go", "gomod", "templ" },
-				settings = {
-					gopls = {
-						staticcheck = true,
-						analyses = {
-							fieldalignment = true,
-							unusedvariable = true,
-						},
-						hints = {
-							assignVariableTypes = true,
-							compositeLiteralFields = true,
-							compositeLiteralTypes = true,
-							constantValues = true,
-							parameterNames = true,
-							rangeVariableTypes = true,
-						},
-					},
-				},
-			})
-
-			lspconfig.sourcekit.setup({
-				capabilities = {
-					workspace = {
-						didChangeWatchedFiles = {
-							dynamicRegistration = true,
-						},
-					},
-				},
-			})
-
-			lspconfig.bashls.setup({})
-
-			lspconfig.pyright.setup({
-				-- settings = {
-				-- 	virtualenv = {
-				-- 		path = "/Users/andrey.kutlin/Developer/misc/venv",
-				-- 	},
-				-- },
-				cmd_env = {
-					VIRTUAL_ENV = ".venv",
-				},
-			})
-			lspconfig.ruff.setup({})
-			lspconfig.docker_language_server.setup({})
+			for _, lsp in pairs(lsps) do
+				local name, config = lsp[1], lsp[2]
+				vim.lsp.enable(name)
+				if config then
+					vim.lsp.config(name, config)
+				else
+					vim.lsp.config(name, {})
+				end
+			end
 		end,
 	},
 }
