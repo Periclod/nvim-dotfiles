@@ -15,7 +15,7 @@ return {
 				require("dap").run_to_cursor()
 			end, { desc = "DAP Run to cursor" })
 			vim.keymap.set("n", prefix .. "t", function()
-				require("dap").close()
+				require("dap").terminate()
 			end, { desc = "DAP Close session" })
 
 			vim.keymap.set("n", prefix .. "n", function()
@@ -24,7 +24,7 @@ return {
 			vim.keymap.set("n", prefix .. "i", function()
 				require("dap").step_into()
 			end, { desc = "DAP Step Into" })
-			vim.keymap.set("n", prefix .. "o", function()
+			vim.keymap.set("n", prefix .. "p", function()
 				require("dap").step_out()
 			end, { desc = "DAP Step Over" })
 
@@ -91,7 +91,7 @@ return {
 					},
 				},
 			}
-			dap.defaults["pwa-node"].exception_breakpoints = { "all" }
+			-- dap.defaults["pwa-node"].exception_breakpoints = { "all" }
 			require("dap").defaults.fallback.switchbuf = "usevisible,usetab,uselast"
 			dap.adapters.php = {
 				type = "executable",
@@ -108,6 +108,7 @@ return {
 					cwd = "${workspaceFolder}",
 				},
 				{
+					-- log = true,
 					type = "pwa-node",
 					request = "attach",
 					name = "Attach to Node app",
@@ -116,11 +117,47 @@ return {
 					cwd = "${workspaceFolder}",
 					restart = true,
 				},
+				{
+					type = "pwa-node",
+					request = "launch",
+					name = "Launch Nuxt Dev Server",
+					outputCapture = "std",
+					program = "${workspaceFolder}/node_modules/nuxt/bin/nuxt.mjs",
+					args = {
+						"dev",
+						"--dotenv",
+						".env.dev",
+					},
+					cwd = "${workspaceFolder}",
+				},
 			}
 			dap.configurations.javascript = jsConfig
 			dap.configurations.typescript = jsConfig
 
 			-- Php configs with iserv-specific file maps
+			local iservPathMappings = {}
+			-- iterate over folders in ~/Developer/iserv and ~/Developer/poweb and map them to /root/git/{name}
+			local base_paths = {
+				vim.fn.expand("~/Developer/iserv"),
+				vim.fn.expand("~/Developer/poweb"),
+			}
+
+			for _, base_path in ipairs(base_paths) do
+				local folders = vim.fn.glob(base_path .. "/*", false, true)
+				for _, folder in ipairs(folders) do
+					if vim.fn.isdirectory(folder) == 1 then
+						local folder_name = vim.fn.fnamemodify(folder, ":t")
+						-- Map /root/git/{folder_name}/app for projects with app subdirectory
+						if vim.fn.isdirectory(folder .. "/app") == 1 then
+							iservPathMappings["/root/git/" .. folder_name .. "/app"] = folder .. "/app"
+						else
+							-- Otherwise map /root/git/{folder_name} to the local path
+							iservPathMappings["/root/git/" .. folder_name] = folder
+						end
+					end
+				end
+			end
+
 			dap.configurations.php = {
 				{
 					-- log = true,
@@ -129,9 +166,7 @@ return {
 					name = "Listen for XDebug",
 					port = 9003,
 					stopOnEntry = false,
-					pathMappings = {
-						["/root/git/contact/app"] = vim.fn.expand("~/Developer/poweb/contact/app"),
-					},
+					pathMappings = iservPathMappings,
 					breakpoints = {
 						exception = {
 							Notice = false,
@@ -143,7 +178,7 @@ return {
 				},
 			}
 
-			require("nvim-dap-virtual-text").setup()
+			require("nvim-dap-virtual-text").setup({})
 		end,
 		cmd = { "DapToggleBreakpoint" },
 	},

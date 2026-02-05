@@ -1,5 +1,6 @@
 local stubs = {
 	"gmagick",
+	"amqp",
 	"imagick",
 	"ds",
 	"apache",

@@ -22,3 +22,6 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
 vim.opt.undofile = true
+
+vim.o.winborder = "rounded"
+vim.o.iskeyword = "@,48-57,192-255"

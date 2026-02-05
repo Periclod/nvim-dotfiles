@@ -115,9 +115,7 @@ return {
 			},
 			{
 				"<leader>ws",
-				function()
-					require("telescope.builtin").lsp_workspace_symbols()
-				end,
+				":Telescope lsp_workspace_symbols query=",
 			},
 			{
 				"<leader>ds",

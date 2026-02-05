@@ -55,8 +55,6 @@ return {
 			},
 		},
 		config = function()
-			vim.lsp.set_log_level("debug")
-
 			local lsps = {
 				-- Everywhere utilities
 				{ "typos_lsp" },
@@ -73,9 +71,9 @@ return {
 				{ "html", {
 					filetypes = { "html", "vue", "twig" },
 				} },
-				{ "cssls", {
-					filetypes = { "css", "less", "scss", "vue" },
-				} },
+				-- { "cssls", {
+				-- 	filetypes = { "css", "less", "scss", "vue" },
+				-- } },
 				{ "somesass_ls" },
 				{ "eslint" },
 				{
