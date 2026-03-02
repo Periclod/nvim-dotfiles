@@ -88,19 +88,18 @@ return {
 						filetypes = { "html", "vue", "typescript", "twig" },
 					},
 				},
-				{
-					"rust_analyzer",
-					{
-
-						settings = {
-							["rust-analyzer"] = {
-								checkOnSave = {
-									command = "clippy",
-								},
-							},
-						},
-					},
-				},
+				-- Configured with 'mrcjkb/rustaceanvim',
+				-- {
+				-- 	"rust_analyzer",
+				-- 	{
+				--
+				-- 		settings = {
+				-- 			["rust-analyzer"] = {
+				-- 				checkOnSave = true,
+				-- 			},
+				-- 		},
+				-- 	},
+				-- },
 				{ "lua_ls" },
 				{ "bashls" },
 				{ "templ", {

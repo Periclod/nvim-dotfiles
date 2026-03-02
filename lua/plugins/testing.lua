@@ -11,6 +11,7 @@ return {
 		"olimorris/neotest-phpunit",
 		"nvim-neotest/neotest-jest",
 		"marilari88/neotest-vitest",
+		"giggio/neo-neotest-rust",
 	},
 	keys = {
 		{
@@ -75,6 +76,10 @@ return {
 				filter_dir = function(name, rel_path, root)
 					return name ~= "node_modules" and name ~= "deps"
 				end,
+			}),
+			require("neo-neotest-rust"),
+			require("rustaceanvim.neotest")({
+				env = { RUSTFLAGS = "-Awarnings" },
 			}),
 		}
 		require("neotest").setup({
