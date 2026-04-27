@@ -56,32 +56,46 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		event = "VeryLazy",
+		branch = "main",
+		init = function()
+			-- Disable entire built-in ftplugin mappings to avoid conflicts.
+			-- See https://github.com/neovim/neovim/tree/master/runtime/ftplugin for built-in ftplugins.
+			vim.g.no_plugin_maps = true
+
+			-- Or, disable per filetype (add as you like)
+			-- vim.g.no_python_maps = true
+			-- vim.g.no_ruby_maps = true
+			-- vim.g.no_rust_maps = true
+			-- vim.g.no_go_maps = true
+		end,
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				textobjects = {
-					select = {
-						enable = true,
-						-- Automatically jump forward to textobj, similar to targets.vim
-						lookahead = true,
-						keymaps = {
-							-- You can use the capture groups defined in textobjects.scm
-							["aa"] = "@parameter.outer",
-							["ia"] = "@parameter.inner",
-							["af"] = "@function.outer",
-							["if"] = "@function.inner",
-							["ac"] = "@class.outer",
-							["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-							["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-						},
-						selection_modes = {
-							["@function.outer"] = "V", -- linewise
-							["@class.outer"] = "V", -- blockwise
-						},
+			require("nvim-treesitter-textobjects").setup({
+				select = {
+					lookahead = true,
+					include_surrounding_whitespace = true,
+					selection_modes = {
+						["@function.outer"] = "V",
+						["@class.outer"] = "V",
 					},
 				},
 			})
+
+			local select = require("nvim-treesitter-textobjects.select")
+			local mappings = {
+				{ "aa", "@parameter.outer", "textobjects" },
+				{ "ia", "@parameter.inner", "textobjects" },
+				{ "af", "@function.outer", "textobjects" },
+				{ "if", "@function.inner", "textobjects" },
+				{ "ac", "@class.outer", "textobjects" },
+				{ "ic", "@class.inner", "textobjects", "Select inner part of a class region" },
+				{ "as", "@local.scope", "locals", "Select language scope" },
+			}
+			for _, m in ipairs(mappings) do
+				local lhs, query, group, desc = m[1], m[2], m[3], m[4]
+				vim.keymap.set({ "x", "o" }, lhs, function()
+					select.select_textobject(query, group)
+				end, { desc = desc })
+			end
 		end,
 	},
 	{

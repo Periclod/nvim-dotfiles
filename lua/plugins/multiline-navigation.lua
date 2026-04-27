@@ -2,7 +2,7 @@ local keys = require("layout")
 
 return {
 	{
-		"ggandor/leap.nvim",
+		"https://codeberg.org/andyg/leap.nvim",
 		dependencies = {
 			"tpope/vim-repeat",
 		},
@@ -21,7 +21,7 @@ return {
 		"ggandor/leap-spooky.nvim",
 		lazy = false,
 		dependencies = {
-			"ggandor/leap.nvim",
+			"https://codeberg.org/andyg/leap.nvim",
 		},
 		opts = {
 			paste_on_remote_yank = true,
